@@ -1,0 +1,85 @@
+Class Name:owner
+Responsibility:
+Delete player
+Delete code
+Donot upload image
+Collaborators:
+Player
+Databases
+
+
+Class Name:databases
+Responsibility:
+Hold info
+Collaborators:
+Player
+owner
+
+Class Name: Player Account 
+Responsibility:
+Add 
+Delete
+Score highest total  lowest  #of code
+Share location
+Count
+Checking scoring
+Collaborators:
+Player
+Map 
+QRcode
+Scoring
+
+Class Name: Player Profile
+Responsibility:
+Searched by username 
+Collaborators:
+Databases
+
+
+ 
+
+
+
+
+Class Name:Player
+Responsibility:
+Scan code 
+Read other account 
+Read itself code 
+Comment 
+
+Collaborators:
+Player account 
+QRcode
+
+
+Class Name：	Scoring
+Responsibility:
+Rank players by high scores
+highest scoring unique QR code.
+total number of QR codes scanned.
+ total sum of scores of QR codes scanned
+Collaborators:
+Databases
+player
+
+
+Class Name:QR Code
+Responsibility:
+Scan for score
+Scanner’s Location
+
+Collaborators:
+Map
+player
+
+
+
+Class Name:Map
+Responsibility:
+Code location 
+Distance
+Code score
+Collaborators:
+Player
+Databases
