@@ -1,0 +1,98 @@
+Class Name: Player
+Responsibility:
+add new QR codes
+remove QR codes
+See all codes from player
+See statistic information of QR code(highest , lowest ,sum, total number)
+See the codes which are scanned by others
+See the rank 
+Search
+Collaborators:
+Database
+QR code
+Rank
+Searching 
+Player Profile
+
+
+Class Name :Searching
+Responsibility：
+Searching  for other players by username
+search for nearby QR codes by using geolocation
+Collaborators:
+Databases
+Player
+
+
+Class Name: Player Profile
+Responsibility:
+Store player’s unique username and contact information
+Can be seen and searched 
+Collaborators:
+Databases
+
+
+Class Name:QR Code
+Responsibility:
+Can be scanned for score
+record Location
+Share location 
+Be commented
+show the players who scan this QR code 
+Collaborators:
+Map
+Player
+
+
+Class Name:Player QR Codes
+Responsibility:
+Can be scanned for score
+see my game status
+Record and Share Location or not
+Be commented
+show the players who scan this QR code
+Collaborators:
+Player
+QRcode
+
+
+Class Name: Owner
+Responsibility:
+Delete player
+Delete code
+Collaborators:
+Player
+Databases
+
+
+Class Name:Databases
+Responsibility:
+Store all players’ information
+Collaborators:
+Player
+Owner
+Rank
+Searching
+Map  
+
+
+Class Name:Rank
+Responsibility:
+Show high scores of all players
+Player’s Ranking for the highest scoring unique QR code
+Player’s Ranking for total number of QR codes scanned.
+Player's ranking for total sum of scores of QR codes scanned
+Collaborators:
+Databases
+Player
+
+
+Class Name:Map
+Responsibility:
+get code’s location 
+Distance
+Show codes’ score
+Collaborators:
+Player
+QR code
+Database
