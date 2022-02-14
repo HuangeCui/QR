@@ -1,12 +1,10 @@
 Class Name: Player
-Responsibility:
+responsibility:
 add new QR codes
 remove QR codes
-See all codes from player
-See statistic information of QR code(highest , lowest ,sum, total number)
-See the codes which are scanned by others
-See the rank 
-Search
+see all QR codes of player
+see statistic information of all QR codes(highest,lowest,sum,total number)
+see the codes which are scanned by others
 Collaborators:
 Database
 QR code
@@ -16,28 +14,28 @@ Player Profile
 
 
 Class Name :Searching
-Responsibility：
-Searching  for other players by username
-search for nearby QR codes by using geolocation
+responsibility：
+searching for other players by username
+search for nearby QR codes 
 Collaborators:
+Map
 Databases
 Player
 
 
 Class Name: Player Profile
 Responsibility:
-Store player’s unique username and contact information
-Can be seen and searched 
+store player’s unique username and contact information
+can be seen and searched 
 Collaborators:
 Databases
 
 
 Class Name:QR Code
 Responsibility:
-Can be scanned for score
-record Location
-Share location 
-Be commented
+can be scanned for score
+record and share location 
+be commented
 show the players who scan this QR code 
 Collaborators:
 Map
@@ -46,10 +44,10 @@ Player
 
 Class Name:Player QR Codes
 Responsibility:
-Can be scanned for score
+can be scanned for score
 see my game status
-Record and Share Location or not
-Be commented
+record and share location or not
+be commented
 show the players who scan this QR code
 Collaborators:
 Player
@@ -58,8 +56,8 @@ QRcode
 
 Class Name: Owner
 Responsibility:
-Delete player
-Delete code
+delete player
+delete code
 Collaborators:
 Player
 Databases
@@ -67,7 +65,7 @@ Databases
 
 Class Name:Databases
 Responsibility:
-Store all players’ information
+store all players’ information
 Collaborators:
 Player
 Owner
@@ -78,10 +76,10 @@ Map
 
 Class Name:Rank
 Responsibility:
-Show high scores of all players
-Player’s Ranking for the highest scoring unique QR code
-Player’s Ranking for total number of QR codes scanned.
-Player's ranking for total sum of scores of QR codes scanned
+show high scores of all players
+player’s Ranking for the highest scoring unique QR code
+player’s Ranking for total number of QR codes scanned.
+player's ranking for total sum of scores of QR codes scanned
 Collaborators:
 Databases
 Player
@@ -89,9 +87,9 @@ Player
 
 Class Name:Map
 Responsibility:
-get code’s location 
-Distance
-Show codes’ score
+get QR code’s location 
+distance
+show codes’ score
 Collaborators:
 Player
 QR code
