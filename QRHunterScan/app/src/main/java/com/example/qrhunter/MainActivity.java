@@ -27,10 +27,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTmp.setOnClickListener(this);
         btnTmp = findViewById(R.id.btnMap);
         btnTmp.setOnClickListener(this);
-        btnTmp = findViewById(R.id.btnRank);
-        btnTmp.setOnClickListener(this);
         btnTmp = findViewById(R.id.btnProfile);
         btnTmp.setOnClickListener(this);
+
+        Button rank= findViewById(R.id.btnRank);
+        rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent rankActivity = new Intent(MainActivity.this, RankActivity.class);
+                startActivity(rankActivity);
+            }
+        });
+
+
     }
 
     @Override
@@ -43,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             default:
                 break;
+
         }
     }
 

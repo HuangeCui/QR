@@ -22,6 +22,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
+            android:name=".RankUnique"
+            android:exported="false" />
+        <activity
+            android:name=".RankSum"
+            android:exported="false" />
+        <activity
+            android:name=".RankHighest"
+            android:exported="false" />
+        <activity
+            android:name=".RankAmount"
+            android:exported="false" />
+        <activity
+            android:name=".RankActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScoreActivity"
             android:exported="false" />
         <activity
@@ -35,12 +50,12 @@
         </activity>
         <activity
             android:name=".SigninActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".ScanActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>
