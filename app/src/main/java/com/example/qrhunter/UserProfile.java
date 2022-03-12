@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +14,11 @@ public class UserProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Intent intent = getIntent();
+
+        // get the name of the user and show on the top
+        SharedData appData = (SharedData) getApplication();
+        TextView userName = findViewById(R.id.userName);
+        userName.setText(appData.getUser());
 
         final Button codeButton = findViewById(R.id.btnUserCode);
         codeButton.setOnClickListener(new View.OnClickListener() {
