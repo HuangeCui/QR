@@ -70,6 +70,7 @@
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".UserProfile"/>
     </application>
 
 </manifest>

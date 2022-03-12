@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTmp.setOnClickListener(this);
         btnTmp = findViewById(R.id.btnMap);
         btnTmp.setOnClickListener(this);
-        btnTmp = findViewById(R.id.btnProfile);
-        btnTmp.setOnClickListener(this);
+//        btnTmp = findViewById(R.id.btnProfile);
+//        btnTmp.setOnClickListener(this);
 
         SharedData appData = (SharedData) getApplication();
         // User user = appData.getUser();
@@ -39,6 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //1234 Log.e("user",user.getUserPasscode() );
 
+        Button profile = findViewById(R.id.btnProfile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
 
         Button rank= findViewById(R.id.btnRank);
         rank.setOnClickListener(new View.OnClickListener() {
