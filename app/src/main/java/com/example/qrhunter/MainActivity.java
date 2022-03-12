@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTmp.setOnClickListener(this);
 
         SharedData appData = (SharedData) getApplication();
-        User user = appData.getUser();
-        if (user == null) {
+        // User user = appData.getUser();
+        if (appData.getUser().equals("")) {
             Intent intent = new Intent(this, SigninActivity.class);
             startActivity(intent);
         }
-       //1234 Log.e("user",user.getUserPasscode() );
+        //1234 Log.e("user",user.getUserPasscode() );
 
 
         Button rank= findViewById(R.id.btnRank);

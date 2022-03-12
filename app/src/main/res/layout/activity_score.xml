@@ -7,10 +7,19 @@
     android:orientation="vertical"
     tools:context=".ScoreActivity">
 
+    <Button
+        android:id="@+id/btnBackToScan"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="Back"
+        android:textColor="@color/black" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:text="You earned new points"
         android:textSize="30sp"
@@ -66,7 +75,7 @@
         android:text="I agree to record this code" />
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAddQRCode"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

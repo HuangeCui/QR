@@ -77,11 +77,11 @@ public class HashScore {
             } else {
                 if (c == '0') {
                     sum += 1;
-                } else if ((c >= '1') && (c <= '9')) {
+                }/* else if ((c >= '1') && (c <= '9')) {
                     sum += c-'0';
                 } else if ((c >= 'a') && (c <= 'f')) {
                     sum += c-'a'+10;
-                }
+                }*/
             }
 //            Log.d("TAG", "score: " + String.valueOf(c) + "---" + s + "::::" + sum);
         }

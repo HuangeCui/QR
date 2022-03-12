@@ -93,10 +93,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                         return;
                     } else {
 //                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        User user = new User(account,password);
-                        appData.setUser(new User(account,password));
-                       Log.e("TAG", user.getUserName());
+//                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                        appData.setUsername(account);
 //                        Log.d("TAG", "onComplete1: " + " => " + document.toObject(User.class));
 //                        Log.d("TAG", "onComplete2: " + " => " + appData.getUser().getName() + "  " + appData.getUser().getPassword());
                         CheckBox chkTmp = (CheckBox) findViewById(R.id.chkRemember);
