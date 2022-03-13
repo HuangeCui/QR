@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                Intent intent = new Intent(MainActivity.this, UserCode.class);
                 startActivity(intent);
             }
         });
@@ -209,8 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         appData.setSearchname(SearchName);
                         //不能正常转跳
-                        //Intent intent = new Intent(MainActivity.this, UserProfile.class);
-                        Intent intent = new Intent(MainActivity.this, UserCode.class);
+                        Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                        //Intent intent = new Intent(MainActivity.this, UserCode.class);
                         startActivity(intent);
                     }
                     Log.d(TAG, "User documents write success. ");
