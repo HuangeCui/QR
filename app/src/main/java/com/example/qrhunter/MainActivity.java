@@ -128,14 +128,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        Button signOut = findViewById(R.id.btnSignOut);
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SigninActivity.class);
-                startActivity(intent);
-            }
-        });
+//        Button signOut = findViewById(R.id.btnSignOut);
+//        signOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, SigninActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }

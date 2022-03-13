@@ -130,8 +130,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     Map<String, Object> data = new HashMap<>();
-                    data.put("score", document.getLong("score") + score);
-                    data.put("number", document.getLong("number") + 1);
+                    data.put("sum", document.getLong("sum") + score);
+                    data.put("total", document.getLong("total") + 1);
                     ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                     codeScoreList.add(new CodeScore(qrCode, score));
                     data.put("codes", codeScoreList);
