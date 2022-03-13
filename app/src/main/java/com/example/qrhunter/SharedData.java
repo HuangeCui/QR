@@ -3,17 +3,16 @@ package com.example.qrhunter;
 import android.app.Application;
 
 public class SharedData extends Application {
-    //    private User user;
     private String username = "";
     private String qrcode;
     private String imagepath;
     private int codescore;
 
-    public void setUsername(String user) {
-        this.username = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getUser() {
+    public String getUsername() {
         return username;
     }
 

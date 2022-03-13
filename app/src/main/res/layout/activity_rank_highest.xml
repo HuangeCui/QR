@@ -7,7 +7,17 @@
     android:orientation="vertical"
     tools:context=".RankAmount">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Back">
 
+        </Button>
+    </LinearLayout>
     <ListView
         android:id="@+id/amount_rank_list"
         android:layout_width="match_parent"

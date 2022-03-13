@@ -49,17 +49,17 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
         Button btnTmp;
         btnTmp = (Button) findViewById(R.id.btnBackToScan);
-        btnTmp.setOnClickListener(ScoreActivity.this);
+        btnTmp.setOnClickListener(this);
         btnTmp = (Button) findViewById(R.id.btnAddQRCode);
-        btnTmp.setOnClickListener(ScoreActivity.this);
+        btnTmp.setOnClickListener(this);
 
         db = FirebaseFirestore.getInstance();
         SharedData appData = (SharedData) getApplication();
         qrCode = appData.getQrcode();
         imagePath = appData.getImagepath();
-        userName = appData.getUser();
+        userName = appData.getUsername();
         ImageView imageView = findViewById(R.id.imgQrcode);
-        Log.d("TAG", "onCreate: " + imagePath + "    " + qrCode);
+        Log.d(TAG, "onCreate: " + imagePath + "    " + qrCode);
 
         // method 1
         File file = new File(imagePath);
@@ -75,12 +75,13 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         HashScore hashScore = new HashScore();
         /* 这里是课程里的例子，但hash值的结果不一样，如果用例子中的hash计算score结果是一样的
         qrcode = "BFG5DGW54";
-        Log.d("TAG", "HashCode: " + hashScore.hash256(qrcode));
+        Log.d(TAG, "HashCode: " + hashScore.hash256(qrcode));
         String hashcode = "696ce4dbd7bb57cbfe58b64f530f428b74999cb37e2ee60980490cd9552de3a6";
         int score = hashScore.score(hashScore.counter(hashcode));
         */
-        Log.d("TAG", "onCreate: Hash = " + hashScore.hash256(qrCode));
+        Log.d(TAG, "onCreate: Hash = " + hashScore.hash256(qrCode));
         score = hashScore.score(hashScore.counter(hashScore.hash256(qrCode)));
+        appData.setCodescore(score);
         TextView textView = findViewById(R.id.txtScore);
         textView.setText(String.valueOf(score));
 
@@ -92,18 +93,18 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 button.setEnabled(isChecked);
             }
         });
-
     }
+
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackToScan:
-                goBack();
+                back();
                 break;
             case R.id.btnAddQRCode:
-                doAdd();
+                add();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
@@ -112,12 +113,14 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void goBack() {
+    private void back() {
         Intent intent = new Intent(this, ScanActivity.class);
         startActivity(intent);
     }
 
-    private void doAdd() {
+    // 可重复扫描，User表里codes可重复增加记录并积分
+    // Code表里不重复，增加或修改记录
+    private void add() {
         // 读出用户记录修改参数再写回
         CollectionReference usersRef = db.collection("Users");
         DocumentReference docUserRef = usersRef.document(userName);
@@ -127,9 +130,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     Map<String, Object> data = new HashMap<>();
-                    // 这里要更新的字段没有写全
-                    data.put("sum", document.getLong("sum") + score);
-                    data.put("total", document.getLong("total") + 1);
+                    data.put("score", document.getLong("score") + score);
+                    data.put("number", document.getLong("number") + 1);
                     ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                     codeScoreList.add(new CodeScore(qrCode, score));
                     data.put("codes", codeScoreList);
@@ -149,11 +151,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 if (task.isSuccessful()) {
                     if (!task.getResult().exists()) {
                         QRCode newCode = new QRCode(qrCode, score);
-                        // 这里也是字段要补充
                         newCode.addScanner(userName);
                         docCodeRef.set(newCode, SetOptions.merge());
                     } else {
-                        // 这里也是字段要补充
                         DocumentSnapshot document = task.getResult();
                         ArrayList<String> userList = (ArrayList<String>) document.get("scanners");
                         userList.add(userName);

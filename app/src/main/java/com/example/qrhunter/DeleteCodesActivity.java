@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +30,7 @@ public class DeleteCodesActivity extends AppCompatActivity {
     private ArrayList<String> codeDataList;
     private ArrayAdapter<String> codeAdapter;
     private int chosenLine=0;
-    private String ID = "test";
+    private String ID; //= "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +40,43 @@ public class DeleteCodesActivity extends AppCompatActivity {
 
         codeList = findViewById(R.id.codes_list);
         codeDataList = new ArrayList<>();
-        //userAdapter = new CustomList(this, userDataList);
         codeAdapter=new ArrayAdapter<>(DeleteCodesActivity.this,android.R.layout.simple_list_item_1,codeDataList);
         codeList.setAdapter(codeAdapter);
 
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("QRCodes");
 
+        SharedData appData = (SharedData) getApplication();
+        String user = appData.getUsername();
+
+       /**b = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference1 = db.collection("Users");
+         collectionReference1.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        @Override
+        public void onEvent(@Nullable final QuerySnapshot queryDocumentSnapshots, @Nullable
+        FirebaseFirestoreException error) {
+        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+            if (user.equals(doc.getId())) {
+                ID = (String) doc.getData().get("userID");
+            }
+            Log.e("Id",ID );
+        }}
+        });**/
+
 
         codeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 chosenLine=i;
+            }
+        });
+
+        Button btn =  findViewById(R.id.back_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DeleteCodesActivity.this,ManageActivity.class);
+                startActivity(intent);
             }
         });
 

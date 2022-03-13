@@ -30,7 +30,7 @@ public class UserCode extends AppCompatActivity {
         // get the name of the user and show on the top
         SharedData appData = (SharedData) getApplication();
         TextView txtUsername = findViewById(R.id.txtUsername);
-        String username = appData.getUser();
+        String username = appData.getUsername();
         txtUsername.setText(username);
 
         db = FirebaseFirestore.getInstance();

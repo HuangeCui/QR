@@ -41,8 +41,8 @@ public class CustomList extends ArrayAdapter<User> {
         TextView userScore = view.findViewById(R.id.province_text);
 
         userName.setText(user.getUserName());
-        //userScore.setText(String.valueOf(user.getCodes().get(0).getScore()));
-        userScore.setText(user.getUserID());
+        userScore.setText(String.valueOf(user.getTotal()));
+        //userScore.setText(user.getUserID());
         return view;
 
     }

@@ -38,6 +38,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:text="Rank by Unique code" />
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:text="Back" />
 
 
 </LinearLayout>

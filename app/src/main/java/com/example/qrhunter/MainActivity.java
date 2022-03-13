@@ -1,5 +1,6 @@
 package com.example.qrhunter;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,13 +12,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnTmp;
-    String userId  = "1234";
+    //String userId  = "1234";
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        btnTmp.setOnClickListener(this);
 
         SharedData appData = (SharedData) getApplication();
-        // User user = appData.getUser();
-        if (appData.getUser().equals("")) {
+        String user = appData.getUsername();
+        if (user.equals("")) {
             Intent intent = new Intent(this, SigninActivity.class);
             startActivity(intent);
         }
@@ -57,17 +65,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        Button manage = findViewById(R.id.btnManage);
+
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("Owners");
+        Button manage= findViewById(R.id.btnManage);
         manage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userId.equals("1234")){
-                    Intent manageActivity = new Intent(MainActivity.this, ManageActivity.class);
-                    startActivity(manageActivity);
-                }
-                else{
+                collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable final QuerySnapshot queryDocumentSnapshots, @Nullable
+                            FirebaseFirestoreException error) {
+                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                            if(user.equals(doc.getId())){
+                                Intent rankActivity = new Intent(MainActivity.this, ManageActivity.class);
+                                startActivity(rankActivity);
+                            }
+                            else{
 
-                }
+                            }
+                        }
+                    }
+                });
+
             }
         });
 

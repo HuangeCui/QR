@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +32,7 @@ public class DeleteUserActivity extends AppCompatActivity {
     private ArrayList<String> userDataList;
     private ArrayAdapter<String> userAdapter;
     private int chosenLine=0;
-    private String user = "test";
+   // private String user = "test";
 
     //不能删除自己
 
@@ -43,18 +44,29 @@ public class DeleteUserActivity extends AppCompatActivity {
 
         userList = findViewById(R.id.user_list);
         userDataList = new ArrayList<>();
-        //userAdapter = new CustomList(this, userDataList);
          userAdapter=new ArrayAdapter<>(DeleteUserActivity.this,android.R.layout.simple_list_item_1,userDataList);
         userList.setAdapter(userAdapter);
 
+        SharedData appData = (SharedData) getApplication();
+        String user = appData.getUsername();
+
         db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("UserList");
+        final CollectionReference collectionReference = db.collection("Users");
 
 
        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 chosenLine=i;
+            }
+        });
+
+        Button btn =  findViewById(R.id.back_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DeleteUserActivity.this,ManageActivity.class);
+                startActivity(intent);
             }
         });
 

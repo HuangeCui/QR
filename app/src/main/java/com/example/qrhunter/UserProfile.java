@@ -18,7 +18,7 @@ public class UserProfile extends AppCompatActivity {
         // get the name of the user and show on the top
         SharedData appData = (SharedData) getApplication();
         TextView userName = findViewById(R.id.userName);
-        userName.setText(appData.getUser());
+        userName.setText(appData.getUsername());
 
         final Button codeButton = findViewById(R.id.btnUserCode);
         codeButton.setOnClickListener(new View.OnClickListener() {

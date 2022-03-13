@@ -23,6 +23,14 @@ public class ManageActivity extends AppCompatActivity {
             }
         });
 
+        Button btn =  findViewById(R.id.back_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ManageActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button deleteCodes = findViewById(R.id.delete_codes_button);
         deleteCodes.setOnClickListener(new View.OnClickListener() {
