@@ -23,6 +23,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class SigninActivity extends AppCompatActivity implements View.OnClickListener {
 
+    String savedName;
+    String savedPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -2,6 +2,7 @@ package com.example.qrhunter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 public class UserCode extends AppCompatActivity {
 
     FirebaseFirestore db;
-    ListView codeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,8 @@ public class UserCode extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         TextView txtTotalScore = findViewById(R.id.txtTotalScore);
         TextView txtNumber = findViewById(R.id.txtNumber);
+        ListView codeList = findViewById(R.id.code_list);
+
 
         CollectionReference userRef = db.collection("Users");
         DocumentReference docUserRef = userRef.document(username);
@@ -46,9 +48,11 @@ public class UserCode extends AppCompatActivity {
                 Long totalScore = document.getLong("sum");
                 Long totalNumber = document.getLong("total");
                 ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
-
+                ArrayAdapter<CodeScore> codeAdapter;
+                codeAdapter = new ArrayAdapter<CodeScore>(UserCode.this, android.R.layout.simple_list_item_1,codeScoreList);
                 txtTotalScore.setText(totalScore.toString());
                 txtNumber.setText(totalNumber.toString());
+                codeList.setAdapter(codeAdapter);
             }
         });
     }
