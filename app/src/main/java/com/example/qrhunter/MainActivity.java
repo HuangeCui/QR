@@ -1,18 +1,27 @@
 package com.example.qrhunter;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -26,25 +35,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnTmp;
     //String userId  = "1234";
     FirebaseFirestore db;
+    SharedData appData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appData = (SharedData) getApplication();
 
         btnTmp = findViewById(R.id.btnPlay);
         btnTmp.setOnClickListener(this);
         btnTmp = findViewById(R.id.btnMap);
         btnTmp.setOnClickListener(this);
+        btnTmp = findViewById(R.id.btnSignOut);
+        btnTmp.setOnClickListener(this);
 //        btnTmp = findViewById(R.id.btnProfile);
 //        btnTmp.setOnClickListener(this);
 
-        SharedData appData = (SharedData) getApplication();
+        //sharedData appData = (SharedData) getApplication();
+        SharedPreferences preferences = getSharedPreferences("QRHunter", MODE_PRIVATE);
+        String userName = preferences.getString("userName", "");
+        String userPassword = preferences.getString("userPassword", "");
+        if (!userName.equals("")) {
+            appData.setUsername(userName);
+        }
+
         String user = appData.getUsername();
         if (user.equals("")) {
-            Intent intent = new Intent(this, SigninActivity.class);
+            Intent intent = new Intent(MainActivity.this, SigninActivity.class);
             startActivity(intent);
         }
+        db = FirebaseFirestore.getInstance();
         //1234 Log.e("user",user.getUserPasscode() );
 
         Button profile = findViewById(R.id.btnProfile);
@@ -65,8 +86,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        SearchView searchView = (SearchView) findViewById(R.id.txtSearchUser);
+        searchView.setIconified(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SearchUser(query);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText != null && newText.length() > 0) {
+                    Log.d("", "text change");
+                }
+                return true;
+            }
+        });
 
-        db = FirebaseFirestore.getInstance();
+
         final CollectionReference collectionReference = db.collection("Owners");
         Button manage= findViewById(R.id.btnManage);
         manage.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +139,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnMap:
                 break;
+            case R.id.btnSignOut:
+                signOut();
+                break;
+
             default:
                 break;
 
         }
+    }
+
+    private void signOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure to sign out?");
+        builder.setTitle("Information");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                appData.setUsername("");
+
+                SharedPreferences.Editor editor = getSharedPreferences("QRHunter", MODE_PRIVATE).edit();
+                editor.putString("userName", "");
+                editor.putString("userPassword", "");
+                editor.apply();
+
+                Intent intent = new Intent(MainActivity.this, SigninActivity.class);
+                startActivity(intent);
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     private void scanCode(){
@@ -118,6 +187,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         integrator.setBeepEnabled(true);
         integrator.initiateScan();
     }
+
+    private void SearchUser(String SearchName) {
+        CollectionReference usersRef = db.collection("Users");
+        DocumentReference docUserRef = usersRef.document(SearchName);
+        docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (!task.getResult().exists()) {
+                        showMessage("User not found.");
+                    } else {
+                        appData.setSearchname(SearchName);
+                        //不能正常转跳
+                        //Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                        Intent intent = new Intent(MainActivity.this, UserCode.class);
+                        startActivity(intent);
+                    }
+                    Log.d(TAG, "User documents write success. ");
+                } else {
+                    Log.d(TAG, "Error getting user documents: ", task.getException());
+                }
+            }
+        });
+    }
+    private void showMessage(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setTitle("Error");
+        builder.setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

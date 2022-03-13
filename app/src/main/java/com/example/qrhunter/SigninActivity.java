@@ -1,11 +1,14 @@
 package com.example.qrhunter;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -93,13 +96,18 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                         return;
                     } else {
 //                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        appData.setUsername(account);
+                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                        appData.setUsername(document.getId());
+                        Log.d(TAG, document.getId() + " => " + document.getData());
 //                        Log.d("TAG", "onComplete1: " + " => " + document.toObject(User.class));
 //                        Log.d("TAG", "onComplete2: " + " => " + appData.getUser().getName() + "  " + appData.getUser().getPassword());
                         CheckBox chkTmp = (CheckBox) findViewById(R.id.chkRemember);
                         if (chkTmp.isChecked()) {
-                            // save to local
+                            // 把登录信息保存到本地文件中
+                            SharedPreferences.Editor editor = getSharedPreferences("QRHunter", MODE_PRIVATE).edit();
+                            editor.putString("userName", account);
+                            editor.putString("userPassword", password);
+                            editor.apply();
                         }
                         Intent intent = new Intent(SigninActivity.this, MainActivity.class);
                         startActivity(intent);

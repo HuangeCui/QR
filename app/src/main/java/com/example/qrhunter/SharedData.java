@@ -4,6 +4,7 @@ import android.app.Application;
 
 public class SharedData extends Application {
     private String username = "";
+    private String searchname = "";
     private String qrcode;
     private String imagepath;
     private int codescore;
@@ -14,6 +15,14 @@ public class SharedData extends Application {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setSearchname(String searchname) {
+        this.searchname = searchname;
+    }
+
+    public String getSearchname() {
+        return searchname;
     }
 
     public void setQrcode(String s) {

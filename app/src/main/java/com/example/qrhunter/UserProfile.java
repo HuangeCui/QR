@@ -9,16 +9,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class UserProfile extends AppCompatActivity {
-
+    SharedData appData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         // get the name of the user and show on the top
-        SharedData appData = (SharedData) getApplication();
-        TextView userName = findViewById(R.id.userName);
-        userName.setText(appData.getUsername());
+        //SharedData appData = (SharedData) getApplication();
+        //TextView userName = findViewById(R.id.userName);
+        //userName.setText(appData.getUsername());
+
+        appData = (SharedData) getApplication();
+        String searchName = appData.getSearchname();
+        TextView textView = (TextView) findViewById(R.id.txtUsername);
+        textView.setText(searchName);
 
         final Button codeButton = findViewById(R.id.btnUserCode);
         codeButton.setOnClickListener(new View.OnClickListener() {

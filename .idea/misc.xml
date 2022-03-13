@@ -27,7 +27,10 @@
         <entry key="..\:/android_file/xiaoluzzz/QR/app/src/main/res/layout/activity_profile.xml" value="0.31145833333333334" />
         <entry key="..\:/android_file/xiaoluzzz/QR/app/src/main/res/layout/activity_signin.xml" value="0.31145833333333334" />
         <entry key="..\:/android_file/xiaoluzzz/QR/app/src/main/res/layout/activity_usercode.xml" value="0.315625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.12291666666666666" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.12291666666666666" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.12291666666666666" />
+        <entry key="app/src/main/res/layout/activity_usercode.xml" value="0.1" />
       </map>
     </option>
   </component>
