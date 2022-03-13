@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,8 @@ public class UserProfile extends AppCompatActivity {
                 finish();
             }
         });
+        EditText email = findViewById(R.id.emailEdit);
+        Button edit = findViewById(R.id.edit_button);
     }
 
 }

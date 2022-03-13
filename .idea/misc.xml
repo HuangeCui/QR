@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/301qr/QR/app/src/main/res/layout/activity_profile.xml" value="0.36614583333333334" />
+        <entry key="..\:/301qr/QR/app/src/main/res/layout/activity_rank.xml" value="0.36614583333333334" />
+        <entry key="..\:/301qr/QR/app/src/main/res/layout/activity_signin.xml" value="0.36614583333333334" />
+        <entry key="..\:/301qr/QR/app/src/main/res/layout/activity_usercode.xml" value="0.36614583333333334" />
         <entry key="..\:/QR-main/QRHunterScan/app/src/main/res/layout/activity_delete_codes.xml" value="0.1" />
         <entry key="..\:/QR-main/QRHunterScan/app/src/main/res/layout/activity_delete_user.xml" value="0.1125" />
         <entry key="..\:/QR-main/QRHunterScan/app/src/main/res/layout/activity_main.xml" value="0.6486486486486487" />
