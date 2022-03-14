@@ -1,8 +1,12 @@
 package com.example.qrhunter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +25,9 @@ import java.util.ArrayList;
 public class UserCode extends AppCompatActivity {
 
     FirebaseFirestore db;
+    TextView textView;
+    AlertDialog dialog;
+    EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,25 @@ public class UserCode extends AppCompatActivity {
                 txtTotalScore.setText(totalScore.toString());
                 txtNumber.setText(totalNumber.toString());
                 codeList.setAdapter(codeAdapter);
+            }
+        });
+        textView = (TextView) findViewById(R.id.usercontact);
+        dialog = new AlertDialog.Builder(this).create();
+        editText = new EditText(this);
+        dialog.setTitle("Please enter you contact email");
+        dialog.setView(editText);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE TEXT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                textView.setText(editText.getText());
+
+            }
+        });
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editText.setText(textView.getText());
+                dialog.show();
             }
         });
     }
