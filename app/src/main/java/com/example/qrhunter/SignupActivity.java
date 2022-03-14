@@ -18,7 +18,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+//if you dont have an account, then you can signup one
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override

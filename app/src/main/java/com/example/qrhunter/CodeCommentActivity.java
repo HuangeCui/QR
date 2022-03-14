@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
-
+//in progress
 public class CodeCommentActivity extends AppCompatActivity implements View.OnClickListener {
     String codeDisplay;
     FirebaseFirestore db;

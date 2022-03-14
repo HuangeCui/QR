@@ -1,7 +1,7 @@
 package com.example.qrhunter;
 
 import android.app.Application;
-
+//get data between activities
 public class SharedData extends Application {
     private String username = "";
     private String searchname = "";

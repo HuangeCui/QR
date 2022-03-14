@@ -24,7 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+// can delete other player, but cannot delete self
 public class DeleteUserActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
