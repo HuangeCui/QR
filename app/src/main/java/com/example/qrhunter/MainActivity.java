@@ -207,15 +207,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (!task.getResult().exists()) {
                         showMessage("User not found.");
                     } else {
+                        //Button go = findViewById(R.id.search_btn);
+                       // go.setOnClickListener(new View.OnClickListener() {
+                           /// @Override
+                          //  public void onClick(View view) {
+                               // Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                               // intent.putExtra("username",SearchName);
+                                //Intent intent = new Intent(MainActivity.this, UserCode.class);
+                               // startActivity(intent);
+                           // }
+                       // });
+
                         appData.setSearchname(SearchName);
                         //不能正常转跳
                         Intent intent = new Intent(MainActivity.this, UserProfile.class);
                         //Intent intent = new Intent(MainActivity.this, UserCode.class);
                         startActivity(intent);
                     }
-                    Log.d(TAG, "User documents write success. ");
+                    Log.e(TAG, "User documents write success. ");
                 } else {
-                    Log.d(TAG, "Error getting user documents: ", task.getException());
+                    Log.e(TAG, "Error getting user documents: ", task.getException());
                 }
             }
         });

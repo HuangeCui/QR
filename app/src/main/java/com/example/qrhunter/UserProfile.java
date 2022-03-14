@@ -20,6 +20,8 @@ public class UserProfile extends AppCompatActivity {
         //SharedData appData = (SharedData) getApplication();
         //TextView userName = findViewById(R.id.userName);
         //userName.setText(appData.getUsername());
+        //Intent intent = getIntent();
+       // String searchName= (String)intent.getStringExtra()getExtras("username");
 
         appData = (SharedData) getApplication();
         String searchName = appData.getSearchname();

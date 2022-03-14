@@ -10,16 +10,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:text="Welcome"
-            android:textSize="26dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="26dp" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/txtSearchUser"
@@ -28,7 +28,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:imeOptions="actionSearch"
-            app:queryHint="Search User"/>
+            app:queryHint="Search User" />
+
 
     </LinearLayout>
 
