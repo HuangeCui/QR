@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +20,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserCode extends AppCompatActivity {
 
@@ -31,6 +35,7 @@ public class UserCode extends AppCompatActivity {
     TextView textView;
     AlertDialog dialog;
     EditText editText;
+    private int chosenLine=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class UserCode extends AppCompatActivity {
         TextView txtTotalScore = findViewById(R.id.txtTotalScore);
         TextView txtNumber = findViewById(R.id.txtNumber);
         ListView codeList = findViewById(R.id.code_list);
+        EditText txtEmail = findViewById(R.id.usercontact);
 
 
         CollectionReference userRef = db.collection("Users");
@@ -57,12 +63,44 @@ public class UserCode extends AppCompatActivity {
                 DocumentSnapshot document = task.getResult();
                 Long totalScore = document.getLong("sum");
                 Long totalNumber = document.getLong("total");
+                String userEmail = document.getString("userEmail");
                 ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                 ArrayAdapter<CodeScore> codeAdapter;
                 codeAdapter = new ArrayAdapter<CodeScore>(UserCode.this, android.R.layout.simple_list_item_1,codeScoreList);
                 txtTotalScore.setText(totalScore.toString());
                 txtNumber.setText(totalNumber.toString());
+                txtEmail.setText(userEmail);
                 codeList.setAdapter(codeAdapter);
+
+                Button changeEmail = findViewById(R.id.change_email);
+                changeEmail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String email = txtEmail.getText().toString();
+                        docUserRef.update("userEmail", email);
+                    }
+                });
+
+
+                codeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        chosenLine=i;
+                    }
+                });
+
+                Button deleteCode = findViewById(R.id.btn_deleteCode);
+                deleteCode.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        codeScoreList.remove(codeScoreList.get(chosenLine));
+                        docUserRef.update("codes",codeScoreList);
+                        docUserRef.update("total",totalNumber-1);
+                        //docUserRef.update("sum",totalScore-(long) codeScoreList.get(chosenLine));
+                        codeList.setAdapter(codeAdapter);
+                    }
+                });
+
 
                 /*
                 Button high = findViewById(R.id.high_code);
@@ -81,25 +119,6 @@ public class UserCode extends AppCompatActivity {
 
                 */
 
-            }
-        });
-        textView = (TextView) findViewById(R.id.usercontact);
-        dialog = new AlertDialog.Builder(this).create();
-        editText = new EditText(this);
-        dialog.setTitle("Please enter you contact email");
-        dialog.setView(editText);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE TEXT", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                textView.setText(editText.getText());
-
-            }
-        });
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editText.setText(textView.getText());
-                dialog.show();
             }
         });
 
