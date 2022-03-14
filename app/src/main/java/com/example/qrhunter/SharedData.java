@@ -8,6 +8,7 @@ public class SharedData extends Application {
     private String qrcode;
     private String imagepath;
     private int codescore;
+    private String codedisplay;
 
     public void setUsername(String username) {
         this.username = username;
@@ -47,5 +48,13 @@ public class SharedData extends Application {
 
     public int getCodescore() {
         return codescore;
+    }
+
+    public void setCodedisplay(String codedisplay) {
+        this.codedisplay = codedisplay;
+    }
+
+    public String getCodedisplay() {
+        return codedisplay;
     }
 }

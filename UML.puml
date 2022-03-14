@@ -1,0 +1,329 @@
+@startuml
+class com.example.qrhunter.RankActivity {
+~ Button amount
+~ Intent intent01
+- ArrayList<User> userDataList
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.CodeScore {
+~ String code
+~ int score
++ void setCode(String)
++ String getCode()
++ void setScore(int)
++ int getScore()
+}
+class com.example.qrhunter.ExampleInstrumentedTest {
++ void useAppContext()
+}
+class com.example.qrhunter.UserCode {
+~ FirebaseFirestore db
+~ TextView textView
+~ AlertDialog dialog
+~ EditText editText
+~ SharedData appData
+- int chosenLine
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.User {
+- String userID
+- String userName
+- String userPasscode
+- int highest
+- int sum
+- int unique
+- int total
+~ String comment
+~ String email
+~ List<CodeScore> code
+- ArrayList<QRCode> codes
+- String userEmail
+~ ArrayList<String> scanned
++ String getUserID()
++ String getUserName()
++ String getUserPasscode()
++ ArrayList<QRCode> getCodes()
++ void addCode(QRCode)
++ int getSum()
++ int getTotal()
++ int getHighest()
++ int getUnique()
++ void removeCode(String,int)
++ void initCodeList()
+}
+class com.example.qrhunter.ScoreActivity {
+~ String qrCode
+~ String imagePath
+~ int score
+~ String userName
+~ FirebaseFirestore db
+~ String TAG
+# void onCreate(Bundle)
++ void onClick(View)
+- void whoscanned()
+- void back()
+- void add()
+}
+class com.example.qrhunter.SharedData {
+- String username
+- String searchname
+- String qrcode
+- String imagepath
+- int codescore
+- String codedisplay
++ void setUsername(String)
++ String getUsername()
++ void setSearchname(String)
++ String getSearchname()
++ void setQrcode(String)
++ String getQrcode()
++ void setImagepath(String)
++ String getImagepath()
++ void setCodescore(int)
++ int getCodescore()
++ void setCodedisplay(String)
++ String getCodedisplay()
+}
+class com.example.qrhunter.SignupActivity {
+# void onCreate(Bundle)
++ void onClick(View)
+- void saveAccount(String,String)
+- void showMessage(String)
+}
+class com.example.qrhunter.QRCodeActivity {
+~ String codeDisplay
+~ FirebaseFirestore db
+~ String TAG
+# void onCreate(Bundle)
++ void onClick(View)
+- void displayCodeInformation()
+- void generateQRImage()
+- void displayElse()
+- void deleteCode()
+- void updateComment()
+- void goBack()
+}
+class com.example.qrhunter.ScanActivity {
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.RankHighest {
+- ListView userList
+- ArrayAdapter<User> userAdapter
+- ArrayList<User> userDataList
+- int chosenLine
+- String userId
+~ FirebaseFirestore db
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.ManageActivity {
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.CodeCommentActivity {
+~ String codeDisplay
+~ FirebaseFirestore db
+~ String TAG
+# void onCreate(Bundle)
++ void onClick(View)
+- void displayInformation()
+- void doAddComment()
+- void goBack()
+}
+class com.example.qrhunter.RankUnique {
+- ListView userList
+- ArrayAdapter<User> userAdapter
+- ArrayList<User> userDataList
+- int chosenLine
+~ FirebaseFirestore db
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.MainActivity {
+~ Button btnTmp
+~ FirebaseFirestore db
+~ SharedData appData
+# void onCreate(Bundle)
++ void onClick(View)
+- void signOut()
+- void scanCode()
+# void onActivityResult(int,int,Intent)
+- void SearchUser(String)
+- void showMessage(String)
+}
+class com.example.qrhunter.SigninActivity {
+~ String savedName
+~ String savedPassword
+# void onCreate(Bundle)
++ void onClick(View)
+- void signin()
+- void showMessage(String)
+}
+class com.example.qrhunter.HashScore {
++ String hash256(String)
+- String byte2hex(byte[])
++ ArrayList<String> counter(String)
++ int score(ArrayList<String>)
+}
+class com.example.qrhunter.BuildConfig {
++ {static} boolean DEBUG
++ {static} String APPLICATION_ID
++ {static} String BUILD_TYPE
++ {static} int VERSION_CODE
++ {static} String VERSION_NAME
+}
+class com.example.qrhunter.ProfileTest {
+- Solo solo
++ ActivityTestRule<MainActivity> rule
++ void setUp()
++ void start()
++ void checkSwitchAndContent()
++ void tearDown()
+}
+class com.example.qrhunter.CustomList {
+- ArrayList<User> users
+- Context context
++ View getView(int,View,ViewGroup)
+}
+class com.example.qrhunter.QRCode {
+- int score
+- String QRId
+- Boolean shared
+- String comment
+- String location
+~ ArrayList<String> scanners
++ void setScore(int)
++ int getScore()
++ void setQRId(String)
++ String getQRId()
++ void setShared(Boolean)
++ Boolean getShared()
++ void setComment(String)
++ String getComment()
++ void setLocation(String)
++ String getLocation()
++ void setScanners(ArrayList<String>)
++ ArrayList<String> getScanners()
++ void addScanner(String)
+}
+class com.example.qrhunter.DeleteUserActivity {
+~ FirebaseFirestore db
+- ListView userList
+- ArrayList<String> userDataList
+- ArrayAdapter<String> userAdapter
+- int chosenLine
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.ExampleUnitTest {
++ void addition_isCorrect()
+}
+class com.example.qrhunter.ManageActivityTest {
+- Solo solo
++ ActivityTestRule<ManageActivity> rule
++ void setUp()
++ void start()
++ void checkSwitch()
++ void checkList()
++ void tearDown()
+}
+class com.example.qrhunter.DeleteCodesActivity {
+~ FirebaseFirestore db
+- ListView codeList
+- ArrayList<String> codeDataList
+- ArrayAdapter<String> codeAdapter
+- int chosenLine
+- String ID
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.CodeScannedbyActivity {
+~ String codeDisplay
+~ FirebaseFirestore db
+~ ListView userList
+~ ArrayList<UserScore> userScoreList
+~ ArrayAdapter<UserScore> userScoreAdapter
+~ String TAG
+# void onCreate(Bundle)
+- int getUserScore(String)
++ void onClick(View)
+}
+class com.example.qrhunter.RankSum {
+- ListView userList
+- ArrayAdapter<User> userAdapter
+- ArrayList<User> userDataList
+- int chosenLine
+- String userId
+~ FirebaseFirestore db
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.RankActivityTest {
+- Solo solo
++ ActivityTestRule<RankActivity> rule
++ void setUp()
++ void start()
++ void checkSwitch()
++ void checkList()
++ void tearDown()
+}
+class com.example.qrhunter.SignInOutUpTest {
+- Solo solo
++ ActivityTestRule<MainActivity> rule
++ void setUp()
++ void start()
++ void checkSignUp()
++ void checkSignInAndOut()
++ void tearDown()
+}
+class com.example.qrhunter.UserProfile {
+~ SharedData appData
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.UserList {
+~ ArrayList<UserScore> users
+~ Context context
++ View getView(int,View,ViewGroup)
+}
+class com.example.qrhunter.RankAmount {
+- ListView userList
+- ArrayAdapter<User> userAdapter
+- ArrayList<User> userDataList
+- int chosenLine
+- String userId
+~ FirebaseFirestore db
+# void onCreate(Bundle)
+}
+class com.example.qrhunter.UserScore {
+~ String user
+~ int score
++ void setUser(String)
++ String getUser()
++ void setScore(int)
++ int getScore()
+}
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.RankActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.UserCode
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.ScoreActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.ScoreActivity
+android.app.Application <|-- com.example.qrhunter.SharedData
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.SignupActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.SignupActivity
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.QRCodeActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.QRCodeActivity
+com.journeyapps.barcodescanner.CaptureActivity <|-- com.example.qrhunter.ScanActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.RankHighest
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.ManageActivity
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.CodeCommentActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.CodeCommentActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.RankUnique
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.MainActivity
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.SigninActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.SigninActivity
+android.widget.ArrayAdapter <|-- com.example.qrhunter.CustomList
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.DeleteUserActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.DeleteCodesActivity
+com.example.qrhunter.OnClickListener <|.. com.example.qrhunter.CodeScannedbyActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.CodeScannedbyActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.RankSum
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.UserProfile
+android.widget.ArrayAdapter <|-- com.example.qrhunter.UserList
+androidx.appcompat.app.AppCompatActivity <|-- com.example.qrhunter.RankAmount
+@enduml

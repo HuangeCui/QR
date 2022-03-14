@@ -205,56 +205,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         integrator.setBeepEnabled(true);
         integrator.initiateScan();
     }
-
-    private void SearchUser(String SearchName) {
-        CollectionReference usersRef = db.collection("Users");
-        DocumentReference docUserRef = usersRef.document(SearchName);
-        docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    if (!task.getResult().exists()) {
-                        showMessage("User not found.");
-                    } else {
-                        //Button go = findViewById(R.id.search_btn);
-                       // go.setOnClickListener(new View.OnClickListener() {
-                           /// @Override
-                          //  public void onClick(View view) {
-                               // Intent intent = new Intent(MainActivity.this, UserProfile.class);
-                               // intent.putExtra("username",SearchName);
-                                //Intent intent = new Intent(MainActivity.this, UserCode.class);
-                               // startActivity(intent);
-                           // }
-                       // });
-
-                        appData.setSearchname(SearchName);
-                        //不能正常转跳
-                        Intent intent = new Intent(MainActivity.this, UserProfile.class);
-                        //Intent intent = new Intent(MainActivity.this, UserCode.class);
-                        startActivity(intent);
-                    }
-                    Log.e(TAG, "User documents write success. ");
-                } else {
-                    Log.e(TAG, "Error getting user documents: ", task.getException());
-                }
-            }
-        });
-    }
-    private void showMessage(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message);
-        builder.setTitle("Error");
-        builder.setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
@@ -290,5 +240,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onActivityResult(requestCode,resultCode,data);
         }
     }
+
+    private void SearchUser(String SearchName) {
+        CollectionReference usersRef = db.collection("Users");
+        DocumentReference docUserRef = usersRef.document(SearchName);
+        docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (!task.getResult().exists()) {
+                        showMessage("User not found.");
+                    } else {
+                        appData.setSearchname(SearchName);
+
+                        Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                        startActivity(intent);
+                        //Button go = findViewById(R.id.search_btn);
+                       // go.setOnClickListener(new View.OnClickListener() {
+                           /// @Override
+                          //  public void onClick(View view) {
+                               // Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                               // intent.putExtra("username",SearchName);
+                                //Intent intent = new Intent(MainActivity.this, UserCode.class);
+                               // startActivity(intent);
+                           // }
+                       // });
+
+                    }
+                    Log.e(TAG, "User documents write success. ");
+                } else {
+                    Log.e(TAG, "Error getting user documents: ", task.getException());
+                }
+            }
+        });
+    }
+    private void showMessage(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setTitle("Error");
+        builder.setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+
 
 }

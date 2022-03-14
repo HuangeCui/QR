@@ -3,6 +3,7 @@ package com.example.qrhunter;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User  {
     private String userID;
@@ -12,9 +13,13 @@ public class User  {
     private int sum;
     private int unique;
     private int total;
+    String comment;
+    String email;
+    List<CodeScore> code;
     private ArrayList<QRCode> codes = new ArrayList<>();
     private String userEmail;
     ArrayList<String> scanned;
+
 
 
     public User(String name, String password) {
@@ -22,6 +27,9 @@ public class User  {
         this.userPasscode = password;
         this.sum = 0;
         this.total = 0;
+        this.email = "";
+        this.comment = "";
+        this.code = new ArrayList<CodeScore>();
        // this.codes = new ArrayList<>();
         //this.comment = "";
        // this.scanned = new ArrayList<String>();
@@ -109,6 +117,18 @@ public class User  {
         //123412341234}
         return unique;
     }
+    public void removeCode(String code, int score) {
+//        Pair<String, Integer> pair = new Pair<>(code, score);
+        CodeScore codeScore = new CodeScore(code, score);
+        this.codes.remove(codeScore);
+    }
+
+    public void initCodeList() {
+        this.code = new ArrayList<CodeScore>();
+    }
+
+
+
 
 
 

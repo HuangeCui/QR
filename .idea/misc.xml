@@ -41,10 +41,18 @@
         <entry key="app/src/main/res/layout/activity_generate_code.xml" value="0.2830596923828125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2988199869791667" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.12291666666666666" />
+        <entry key="app/src/main/res/drawable/edit_background.xml" value="0.1390625" />
+        <entry key="app/src/main/res/layout/activity_codecomment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_codescannedby.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.12291666666666666" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_qrcode.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.12291666666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.27879638671874996" />
         <entry key="app/src/main/res/layout/activity_usercode.xml" value="0.23632507324218754" />
+        <entry key="app/src/main/res/layout/activity_usercode.xml" value="0.19736842105263158" />
         <entry key="app/src/main/res/layout/content.xml" value="0.36096014492753625" />
+        <entry key="app/src/main/res/layout/user_content.xml" value="0.12291666666666666" />
       </map>
     </option>
   </component>
