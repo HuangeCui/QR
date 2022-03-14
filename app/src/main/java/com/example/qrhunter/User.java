@@ -13,6 +13,7 @@ public class User  {
     private int unique;
     private int total;
     private ArrayList<QRCode> codes = new ArrayList<>();
+    private String userEmail;
     ArrayList<String> scanned;
 
 
