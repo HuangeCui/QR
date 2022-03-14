@@ -44,16 +44,22 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/sortUp"
+                android:id="@+id/high_code"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
-                android:text="Sort by Score↑"/>
+                android:text="Show highest"/>
 
             <Button
-                android:id="@+id/sortDown"
+                android:id="@+id/low_code"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
-                android:text="Sort by Score↓"/>
+                android:text="Show lowest"/>
+            <Button
+                android:id="@+id/back_to_profile"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="back">
+            </Button>
         </LinearLayout>
 
         <LinearLayout
