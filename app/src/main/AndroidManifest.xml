@@ -53,6 +53,12 @@
             android:name=".ScoreActivity"
             android:exported="true" />
         <activity
+            android:name=".CodeCommentActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CodeScannedbyActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

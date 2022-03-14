@@ -35,6 +35,7 @@ public class UserCode extends AppCompatActivity {
     TextView textView;
     AlertDialog dialog;
     EditText editText;
+    SharedData appData;
     private int chosenLine=0;
 
     @Override
@@ -43,11 +44,19 @@ public class UserCode extends AppCompatActivity {
         setContentView(R.layout.activity_usercode);
 
         // get the name of the user and show on the top
+
         SharedData appData = (SharedData) getApplication();
         TextView txtUsername = findViewById(R.id.txtUsername);
         String username = appData.getUsername();
         txtUsername.setText(username);
 
+
+    /*
+        appData = (SharedData) getApplication();
+        String searchName = appData.getSearchname();
+        TextView textView = (TextView) findViewById(R.id.txtUsername);
+        textView.setText(searchName);
+    */
         db = FirebaseFirestore.getInstance();
         TextView txtTotalScore = findViewById(R.id.txtTotalScore);
         TextView txtNumber = findViewById(R.id.txtNumber);
@@ -57,6 +66,7 @@ public class UserCode extends AppCompatActivity {
 
         CollectionReference userRef = db.collection("Users");
         DocumentReference docUserRef = userRef.document(username);
+        //DocumentReference docUserRef = userRef.document(searchName);
         docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

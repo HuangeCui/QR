@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -51,6 +52,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         btnTmp = (Button) findViewById(R.id.btnBackToScan);
         btnTmp.setOnClickListener(this);
         btnTmp = (Button) findViewById(R.id.btnAddQRCode);
+        btnTmp.setOnClickListener(this);
+        btnTmp = (Button) findViewById(R.id.btnwhoscanned);
         btnTmp.setOnClickListener(this);
 
         db = FirebaseFirestore.getInstance();
@@ -108,9 +111,24 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btnwhoscanned:
+                /*
+                Toast.makeText(this, "No Result", Toast.LENGTH_LONG).show();
+                Intent intent2 = new Intent(this, CodeScannedbyActivity.class);
+                startActivity(intent2);
+
+                 */
+                whoscanned();
+                //back();
+                break;
             default:
                 break;
         }
+    }
+
+    private void whoscanned() {
+        Intent intent = new Intent(this, CodeScannedbyActivity  .class);
+        startActivity(intent);
     }
 
     private void back() {
@@ -118,10 +136,10 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
     }
 
-    // 可重复扫描，User表里codes可重复增加记录并积分
-    // Code表里不重复，增加或修改记录
+    // one code can scan so many times and keep adding score
     private void add() {
-        // 读出用户记录修改参数再写回
+
+        // Read user records modify parameters and write back
         CollectionReference usersRef = db.collection("Users");
         DocumentReference docUserRef = usersRef.document(userName);
         docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -142,7 +160,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-        // Code 存在就读出，不存在就新建，然后修改参数写回
+        // If Code exists, read it out, create it if it does not exist, and write it back by modifying the parameters
         CollectionReference codesRef = db.collection("QRCodes");
         DocumentReference docCodeRef = codesRef.document(qrCode);
         docCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
