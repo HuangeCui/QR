@@ -95,25 +95,6 @@ public class UserCode extends AppCompatActivity {
 
             }
         });
-        textView = (TextView) findViewById(R.id.usercontact);
-        dialog = new AlertDialog.Builder(this).create();
-        editText = new EditText(this);
-        dialog.setTitle("Please enter you contact email");
-        dialog.setView(editText);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE TEXT", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                textView.setText(editText.getText());
-
-            }
-        });
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editText.setText(textView.getText());
-                dialog.show();
-            }
-        });
 
         Button back = findViewById(R.id.back_to_profile);
         back.setOnClickListener(new View.OnClickListener() {
