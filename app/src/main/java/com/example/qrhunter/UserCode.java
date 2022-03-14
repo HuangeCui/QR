@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +20,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserCode extends AppCompatActivity {
 
@@ -31,6 +35,7 @@ public class UserCode extends AppCompatActivity {
     TextView textView;
     AlertDialog dialog;
     EditText editText;
+    private int chosenLine=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,27 @@ public class UserCode extends AppCompatActivity {
                         docUserRef.update("userEmail", email);
                     }
                 });
+
+
+                codeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        chosenLine=i;
+                    }
+                });
+
+                Button deleteCode = findViewById(R.id.btn_deleteCode);
+                deleteCode.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        codeScoreList.remove(codeScoreList.get(chosenLine));
+                        docUserRef.update("codes",codeScoreList);
+                        docUserRef.update("total",totalNumber-1);
+                        //docUserRef.update("sum",totalScore-(long) codeScoreList.get(chosenLine));
+                        codeList.setAdapter(codeAdapter);
+                    }
+                });
+
 
                 /*
                 Button high = findViewById(R.id.high_code);
