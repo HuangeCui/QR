@@ -47,6 +47,7 @@ public class UserCode extends AppCompatActivity {
         TextView txtTotalScore = findViewById(R.id.txtTotalScore);
         TextView txtNumber = findViewById(R.id.txtNumber);
         ListView codeList = findViewById(R.id.code_list);
+        EditText txtEmail = findViewById(R.id.usercontact);
 
 
         CollectionReference userRef = db.collection("Users");
@@ -57,12 +58,23 @@ public class UserCode extends AppCompatActivity {
                 DocumentSnapshot document = task.getResult();
                 Long totalScore = document.getLong("sum");
                 Long totalNumber = document.getLong("total");
+                String userEmail = document.getString("userEmail");
                 ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                 ArrayAdapter<CodeScore> codeAdapter;
                 codeAdapter = new ArrayAdapter<CodeScore>(UserCode.this, android.R.layout.simple_list_item_1,codeScoreList);
                 txtTotalScore.setText(totalScore.toString());
                 txtNumber.setText(totalNumber.toString());
+                txtEmail.setText(userEmail);
                 codeList.setAdapter(codeAdapter);
+
+                Button changeEmail = findViewById(R.id.change_email);
+                changeEmail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String email = txtEmail.getText().toString();
+                        docUserRef.update("userEmail", email);
+                    }
+                });
 
                 /*
                 Button high = findViewById(R.id.high_code);
