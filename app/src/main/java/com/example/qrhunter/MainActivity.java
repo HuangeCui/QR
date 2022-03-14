@@ -86,6 +86,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        Button code = findViewById(R.id.btnCode);
+        code.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent GenerateCOde = new Intent(MainActivity.this, GenerateCOde.class);
+                startActivity(GenerateCOde);
+            }
+        }));
+
         SearchView searchView = (SearchView) findViewById(R.id.txtSearchUser);
         searchView.setIconified(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
