@@ -15,7 +15,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-
+//generate two codes, one for signin another one for view game status
 public class GenerateCOde extends AppCompatActivity {
     ImageView SignInCode;
     ImageView ProfileCode;

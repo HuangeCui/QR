@@ -22,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+//see game-wide high scores of all players
 public class RankHighest extends AppCompatActivity {
     private ListView userList;
     private ArrayAdapter<User> userAdapter;

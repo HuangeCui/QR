@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+//in progress
 public class CodeScannedbyActivity extends AppCompatActivity implements View.OnClickListener{
 
     String codeDisplay;

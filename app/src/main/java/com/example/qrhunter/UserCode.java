@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-
+//see user's profile
 public class UserCode extends AppCompatActivity {
 
     FirebaseFirestore db;
