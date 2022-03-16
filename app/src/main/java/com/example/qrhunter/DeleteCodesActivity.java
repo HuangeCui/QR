@@ -84,7 +84,7 @@ public class DeleteCodesActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!ID.equals(codeDataList.get(chosenLine))){
+                //if(!ID.equals(codeDataList.get(chosenLine))){
                     collectionReference
                             .document(codeDataList.get(chosenLine))
                             .delete()
@@ -102,10 +102,10 @@ public class DeleteCodesActivity extends AppCompatActivity {
                             });
 
                     codeAdapter.notifyDataSetChanged();
-                }
-                else{
-                    Log.e("cannot","this is own" );
-                }
+                //}
+               /// else{
+                 ///   Log.e("cannot","this is own" );
+              //  }
             }
 
         });
