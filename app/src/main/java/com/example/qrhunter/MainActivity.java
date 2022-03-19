@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnTmp = findViewById(R.id.btnPlay);
         btnTmp.setOnClickListener(this);
-        btnTmp = findViewById(R.id.btnMap);
+        //btnTmp = findViewById(R.id.btnMap);
         btnTmp.setOnClickListener(this);
         btnTmp = findViewById(R.id.btnSignOut);
         btnTmp.setOnClickListener(this);
@@ -85,6 +85,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(rankActivity);
             }
         });
+
+        Button map= findViewById(R.id.btnMap);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent rankActivity = new Intent(MainActivity.this, MapDemo.class);
+                startActivity(rankActivity);
+            }
+        });
+
+
 
         Button code = findViewById(R.id.btnCode);
         code.setOnClickListener((new View.OnClickListener() {
@@ -155,8 +166,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnPlay:
                 scanCode();
                 break;
-            case R.id.btnMap:
-                break;
+            //case R.id.btnMap:
+                //break;
             case R.id.btnSignOut:
                 signOut();
                 break;
