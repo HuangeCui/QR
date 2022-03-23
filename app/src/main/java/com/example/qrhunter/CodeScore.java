@@ -35,8 +35,8 @@ public class CodeScore implements Comparable<CodeScore>{
 
     @Override
     public String toString() {
-        return "CodeScore{" +
-                "code='" + code + '\'' +
+        return
+                "{code='" + code + '\'' +
                 ", score=" + score +
                 '}';
     }
