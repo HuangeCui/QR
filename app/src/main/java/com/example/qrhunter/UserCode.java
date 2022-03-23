@@ -1,9 +1,12 @@
 package com.example.qrhunter;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +40,10 @@ public class UserCode extends AppCompatActivity {
     EditText editText;
     SharedData appData;
     private int chosenLine=0;
+    Button buttonhighest;
+    Button buttonlowest;
+    String highestscore="";
+    String lowestscore="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +81,16 @@ public class UserCode extends AppCompatActivity {
                 Long totalScore = document.getLong("sum");
                 Long totalNumber = document.getLong("total");
                 String userEmail = document.getString("userEmail");
-                ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
+                //ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
+                ArrayList<HashMap> tmp_codeScoreList = (ArrayList<HashMap>) document.get("codes");
+                ArrayList<CodeScore> codeScoreList = new ArrayList<>();
+
+                for(int i=0;i<tmp_codeScoreList.size();i++){
+                    CodeScore tmp = new CodeScore((String)tmp_codeScoreList.get(i).get("code"),((Long)tmp_codeScoreList.get(i).get("score")).intValue());
+                    codeScoreList.add(tmp);
+                }
+
+
                 ArrayAdapter<CodeScore> codeAdapter;
                 codeAdapter = new ArrayAdapter<CodeScore>(UserCode.this, android.R.layout.simple_list_item_1,codeScoreList);
                 txtTotalScore.setText(totalScore.toString());
@@ -98,7 +114,6 @@ public class UserCode extends AppCompatActivity {
                         chosenLine=i;
                     }
                 });
-
                 Button deleteCode = findViewById(R.id.btn_deleteCode);
                 deleteCode.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,8 +125,12 @@ public class UserCode extends AppCompatActivity {
                         codeList.setAdapter(codeAdapter);
                     }
                 });
+                Collections.sort(codeScoreList);
+                codeAdapter.notifyDataSetChanged();
+                docUserRef.update("highest",codeScoreList.get(codeScoreList.size()-1).score);
 
-
+                lowestscore="THe highest score QR name is "+codeScoreList.get(1).code+"\n"+"It's score is "+codeScoreList.get(1).score+".";
+                highestscore="THe lowest score QR name is "+codeScoreList.get(codeScoreList.size()-1).code+"\n"+"It's score is "+codeScoreList.get(codeScoreList.size()-1).score+".";
                 /*
                 Button high = findViewById(R.id.high_code);
                 high.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +151,22 @@ public class UserCode extends AppCompatActivity {
             }
         });
 
+        buttonhighest = (Button) findViewById(R.id.high_code);
+        buttonlowest = (Button) findViewById(R.id.low_code);
+
+        buttonhighest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highestDialog(highestscore);
+            }
+        });
+        buttonlowest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lowestDialog(lowestscore);
+            }
+        });
+
         Button back = findViewById(R.id.back_to_profile);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,5 +175,35 @@ public class UserCode extends AppCompatActivity {
             }
         });
         
+    }
+    public void highestDialog(String message){
+        AlertDialog dlg =new AlertDialog.Builder(UserCode.this)
+                .setTitle("Highest Score QR Code")
+                .setMessage(message)
+                .setPositiveButton("Now I know that", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        dlg.show();
+
+
+    }
+    public void lowestDialog(String message){
+        AlertDialog dlg =new AlertDialog.Builder(UserCode.this)
+                .setTitle("Lowest Score QR Code")
+                .setMessage(message)
+                .setPositiveButton("Now I know that", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        dlg.show();
+
+
     }
 }
