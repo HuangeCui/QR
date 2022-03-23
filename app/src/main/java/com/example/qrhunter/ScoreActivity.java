@@ -108,8 +108,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnAddQRCode:
                 add();
-                Intent intent = new Intent(this, ShareActivity.class);
-                startActivity(intent);
+
                 break;
             case R.id.btnwhoscanned:
                 /*
@@ -185,5 +184,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+        Intent intent = new Intent(this, ShareActivity.class);
+        startActivity(intent);
     }
 }
