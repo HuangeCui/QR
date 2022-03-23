@@ -1,6 +1,6 @@
 package com.example.qrhunter;
 
-public class CodeScore {
+public class CodeScore implements Comparable<CodeScore>{
     String code;
     int score;
 
@@ -26,4 +26,19 @@ public class CodeScore {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public int compareTo(CodeScore o) {
+        return this.score - o.getScore();
+
+    }
+
+    @Override
+    public String toString() {
+        return "CodeScore{" +
+                "code='" + code + '\'' +
+                ", score=" + score +
+                '}';
+    }
+
 }
