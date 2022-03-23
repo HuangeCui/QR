@@ -3,6 +3,7 @@ package com.example.qrhunter;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,8 +11,11 @@ import androidx.core.content.PackageManagerCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,10 +30,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.qrhunter.databinding.ActivityMapDemoBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -43,6 +49,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
     private ActivityMapDemoBinding binding;
     FirebaseFirestore db;
     private int ACCESS_LOCATION_REQUEST_CODE = 10001;
+    List<Address> listGeoCoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +89,18 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //search location to find QRcodes nearby
-
+                try {
+                    listGeoCoder = new Geocoder(MapDemo.this).getFromLocationName(query, 1);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                double lng = listGeoCoder.get(0).getLongitude();
+                double lat = listGeoCoder.get(0).getLatitude();
+                Log.i("GoogleMap", "Longitude: " + String.valueOf(lng) + "Latitude: " + String.valueOf(lat));
+                LatLng latLng = new LatLng(lat, lng);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                //mMap.animateCamera(CameraUpdateFactory.zoomIn());
                 return true;
             }
 
@@ -95,6 +113,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
             }
         });
     }
+
 
     /**
      * Manipulates the map once available.
