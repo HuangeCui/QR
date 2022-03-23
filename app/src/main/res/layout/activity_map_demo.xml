@@ -30,23 +30,23 @@
         android:layout_height="41dp"
         android:orientation="horizontal">
 
-
         <Button
-            android:id="@+id/toadd"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:text="Back" />
+            android:id="@+id/currentlocation"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="MyLocation"
+            android:textSize="10dp"/>
 
-        <TextView
-            android:id="@+id/toshow"
-            android:layout_width="300dp"
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/txtSearchCode"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="10dp"
-            android:text="asfsdfs"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"
+            android:imeOptions="actionSearch"
+            app:queryHint="Search QRcode" />
 
 
     </LinearLayout>
