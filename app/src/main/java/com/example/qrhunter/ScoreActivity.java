@@ -1,8 +1,10 @@
 package com.example.qrhunter;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -26,10 +28,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +44,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     int score;
     String userName;
     FirebaseFirestore db;
+    Boolean savedPicture = false;
+    Boolean savedGeo = false;
 
     final String TAG = "ScoreActivity";
 
@@ -107,6 +113,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 back();
                 break;
             case R.id.btnAddQRCode:
+                saveGeo();
                 add();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -185,5 +192,118 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+    }
+
+    public void saveGeo(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
+        builder.setMessage("Are you sure to Save Location?");
+        builder.setTitle("Information");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                savedGeo= true;
+                savePicture();
+
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                savedGeo = false;
+                savePicture();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();}
+    public void savePicture(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
+        builder.setMessage("Are you sure to Save Picture?");
+        builder.setTitle("Information");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                savedPicture = true;
+                //takePhoto();
+                //notBigPhoto();
+
+
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                savedPicture = false;
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();}
+
+
+    public void notBigPhoto(){
+        SharedData appData = (SharedData) getApplication();
+        imagePath = appData.getImagepath();
+        File file = new File(imagePath);
+        double size = getFileOrFilesSize(file);
+        if(size>=64){
+            changeSize();
+        }
+
+    }
+
+
+    public static double getFileOrFilesSize(File file) {
+
+        //File file = new File(filePath);
+        long blockSize = 0;
+        try {
+            if (file.isDirectory()) {
+                blockSize = getFileSizes(file);
+            } else {
+                blockSize = getFileSize(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("fail","not exist!");
+        }
+        return FormetFileSize(blockSize);
+    }
+
+    private static double FormetFileSize(long fileS) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        double fileSizeLong = 0;
+        fileSizeLong = Double.valueOf(df.format((double) fileS / 1024));
+        return fileSizeLong;
+
+    }
+
+    private static long getFileSizes(File f) throws Exception {
+        long size = 0;
+        File flist[] = f.listFiles();
+        for (int i = 0; i < flist.length; i++) {
+            if (flist[i].isDirectory()) {
+                size = size + getFileSizes(flist[i]);
+            } else {
+                size = size + getFileSize(flist[i]);
+            }
+        }
+        return size;
+    }
+
+    private static long getFileSize(File file) throws Exception {
+        long size = 0;
+        if (file.exists()) {
+            FileInputStream fis = null;
+            fis = new FileInputStream(file);
+            size = fis.available();
+        } else {
+            file.createNewFile();
+            Log.e("fail","not exit!");
+        }
+        return size;
+    }
+
+    public void changeSize(){
+
     }
 }
