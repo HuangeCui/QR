@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -114,9 +117,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnAddQRCode:
                 saveGeo();
-                add();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+               // add();
+                //Intent intent = new Intent(this, MainActivity.class);
+               // startActivity(intent);
                 break;
             case R.id.btnwhoscanned:
                 /*
@@ -145,7 +148,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
     // one code can scan so many times and keep adding score
     private void add() {
-
+        //saveGeo();
         // Read user records modify parameters and write back
         CollectionReference usersRef = db.collection("Users");
         DocumentReference docUserRef = usersRef.document(userName);
@@ -192,6 +195,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+
+
+
     }
 
     public void saveGeo(){
@@ -215,6 +221,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         });
         AlertDialog dialog = builder.create();
         dialog.show();}
+
     public void savePicture(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
@@ -224,15 +231,14 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 savedPicture = true;
-                //takePhoto();
-                //notBigPhoto();
-
-
+                notBigPhoto();
             }
         }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 savedPicture = false;
+                Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -245,9 +251,56 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         imagePath = appData.getImagepath();
         File file = new File(imagePath);
         double size = getFileOrFilesSize(file);
-        if(size>=64){
-            changeSize();
-        }
+        //Log.e(TAG, ""+size);
+        if(size<=64){
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//Environment.getExternalStorageDirectory().getAbsolutePath() + "/compresstest/test.png"
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            String str = "2";
+            int quality = Integer.parseInt(str);
+            if(bitmap != null) {
+//            bitmap.compress(Bitmap.CompressFormat.PNG, quality, baos); // 设置Bitmap.CompressFormat.PNG，quality将不起作用，PNG是无损压缩
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+                byte[] bytes = baos.toByteArray();
+                Bitmap newBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                //String info = " quality: " + quality + " 压缩图片大小: " + (newBitmap.getByteCount()) + " 压缩后文件大小: " + (bytes.length) + " 宽度为: " + newBitmap.getWidth() + " 高度为: " + newBitmap.getHeight();
+                Log.e("quality", ""+bytes.length);
+                // tvCompress.setText(info);
+                // imgvCompress.setImageBitmap(newBitmap);
+            }
+            add();
+            Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+            startActivity(intent);
+
+             }
+
+
+        //Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//Environment.getExternalStorageDirectory().getAbsolutePath() + "/compresstest/test.png"
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //String str = "2";//edtvQuality.getText().toString();
+        //int quality = 100;
+        //try {
+         //int quality = Integer.parseInt(str);
+      //  } catch (Exception e) {
+            //Toast.makeText(this, "请输入有效数字内容", Toast.LENGTH_SHORT).show();
+        //    e.printStackTrace();
+           // return ;
+       //}
+      //  if(bitmap != null) {
+//       //     bitmap.compress(Bitmap.CompressFormat.PNG, quality, baos); // 设置Bitmap.CompressFormat.PNG，quality将不起作用，PNG是无损压缩
+        //    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+        //    byte[] bytes = baos.toByteArray();
+         //   Bitmap newBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            //String info = " quality: " + quality + " 压缩图片大小: " + (newBitmap.getByteCount()) + " 压缩后文件大小: " + (bytes.length) + " 宽度为: " + newBitmap.getWidth() + " 高度为: " + newBitmap.getHeight();
+          //  Log.e("quality", ""+bytes.length);
+           // tvCompress.setText(info);
+           // imgvCompress.setImageBitmap(newBitmap);
+      //  }
+
+       // if(size>=64){
+       //     changeSize();
+       // }
+
+
 
     }
 
@@ -303,7 +356,4 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         return size;
     }
 
-    public void changeSize(){
-
-    }
 }
