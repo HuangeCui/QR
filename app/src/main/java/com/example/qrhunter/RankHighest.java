@@ -28,7 +28,7 @@ public class RankHighest extends AppCompatActivity {
     private ArrayAdapter<User> userAdapter;
     private ArrayList<User> userDataList;
     private int chosenLine = 0;
-    private String userId="1234";
+    //private String userId="1234";
     FirebaseFirestore db;
 
     @Override

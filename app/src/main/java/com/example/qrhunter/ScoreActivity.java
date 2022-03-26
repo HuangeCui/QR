@@ -232,6 +232,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialog, int which) {
                 savedPicture = true;
                 notBigPhoto();
+
             }
         }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
@@ -267,9 +268,6 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 // tvCompress.setText(info);
                 // imgvCompress.setImageBitmap(newBitmap);
             }
-            add();
-            Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
-            startActivity(intent);
 
              }
 
@@ -300,6 +298,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
        //     changeSize();
        // }
 
+        add();
+        Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+        startActivity(intent);
 
 
     }
