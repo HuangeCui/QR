@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">QR Hunter</string>
     <string name="title_activity_map_demo">MapDemo</string>
+    <string name="title_activity_map_demo2">MapDemo2</string>
 </resources>

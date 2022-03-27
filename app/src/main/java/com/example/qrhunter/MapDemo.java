@@ -67,8 +67,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapDemo.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -174,7 +173,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
                             // calculate the distance between current location and markers
                             float results[]=new float[10];
                             Location.distanceBetween(currentlatitude,currentlongitude,lat,lng,results);
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet(" Score: "+qrScore+"  Distance: "+results[0]+" meters\n"));
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet(" Score: "+qrScore+"  Distance: "+results[0]+" meters"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             mMap.getUiSettings().setZoomControlsEnabled(true);
