@@ -125,19 +125,44 @@ public class UserCode extends AppCompatActivity {
                 deleteCode.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        codeScoreList.remove(codeScoreList.get(chosenLine));
-                        docUserRef.update("codes",codeScoreList);
-                        docUserRef.update("total",totalNumber-1);
-                        //docUserRef.update("sum",totalScore-(long) codeScoreList.get(chosenLine));
-                        codeList.setAdapter(codeAdapter);
+//                        codeScoreList.remove(codeScoreList.get(chosenLine));
+//                        docUserRef.update("codes",codeScoreList);
+//                        docUserRef.update("total",totalNumber-1);
+//                        //docUserRef.update("sum",totalScore-(long) codeScoreList.get(chosenLine));
+//                        codeList.setAdapter(codeAdapter);
+                        if (codeScoreList.size()>=1) {
+                            // 要从QrCodes里面找到code，从code里的scanner里删除user
+                            HashScore hashScore = new HashScore();
+                            CollectionReference codeRef = db.collection("QRCodes");
+                            DocumentReference docCodeRef = codeRef.document(hashScore.hash256(codeScoreList.get(chosenLine).getCode()));
+
+                            docCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        ArrayList<String> scannerList = (ArrayList<String>) document.get("scanners");
+                                        scannerList.remove(username);
+                                        docCodeRef.update("scanners", scannerList);
+                                    }
+                                }
+                            });
+
+                            docUserRef.update("total", totalNumber - 1);
+                            docUserRef.update("sum",totalScore-codeScoreList.get(chosenLine).getScore());
+                            codeScoreList.remove(codeScoreList.get(chosenLine));
+                            docUserRef.update("codes", codeScoreList);
+                            codeAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
                 Collections.sort(codeScoreList);
                 codeAdapter.notifyDataSetChanged();
-                docUserRef.update("highest",codeScoreList.get(codeScoreList.size()-1).score);
-
-                lowestscore="THe highest score QR name is "+codeScoreList.get(0).code+"\n"+"It's score is "+codeScoreList.get(0).score+".";
-                highestscore="THe lowest score QR name is "+codeScoreList.get(codeScoreList.size()-1).code+"\n"+"It's score is "+codeScoreList.get(codeScoreList.size()-1).score+".";
+                if (codeScoreList.size()>=1) {
+                    docUserRef.update("highest",codeScoreList.get(codeScoreList.size()-1).score);
+                    lowestscore="THe highest score QR name is "+codeScoreList.get(0).code+"\n"+"It's score is "+codeScoreList.get(0).score+".";
+                    highestscore="THe lowest score QR name is "+codeScoreList.get(codeScoreList.size()-1).code+"\n"+"It's score is "+codeScoreList.get(codeScoreList.size()-1).score+".";
+                }
                 /*
                 Button high = findViewById(R.id.high_code);
                 high.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +207,7 @@ public class UserCode extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
+
     }
     public void highestDialog(String message){
         AlertDialog dlg =new AlertDialog.Builder(UserCode.this)

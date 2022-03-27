@@ -37,8 +37,8 @@ public class CodeScore implements Comparable<CodeScore>{
     public String toString() {
         return
                 "{code='" + code + '\'' +
-                ", score=" + score +
-                '}';
+                        ", score=" + score +
+                        '}';
     }
 
 }

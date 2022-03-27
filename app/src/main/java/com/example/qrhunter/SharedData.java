@@ -6,6 +6,7 @@ public class SharedData extends Application {
     private String username = "";
     private String searchname = "";
     private String qrcode;
+    private String qrcodekey;
     private String imagepath;
     private int codescore;
     private String codedisplay;
@@ -56,5 +57,13 @@ public class SharedData extends Application {
 
     public String getCodedisplay() {
         return codedisplay;
+    }
+
+    public void setQrcodekey(String qrcodekey) {
+        this.qrcodekey = qrcodekey;
+    }
+
+    public String getQrcodekey() {
+        return qrcodekey;
     }
 }

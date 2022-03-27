@@ -55,6 +55,7 @@
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25044657389322916" />
         <entry key="app/src/main/res/layout/activity_qrcode.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.12291666666666666" />
+        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.12291666666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.27879638671874996" />
         <entry key="app/src/main/res/layout/activity_usercode.xml" value="0.23632507324218754" />
         <entry key="app/src/main/res/layout/content.xml" value="0.36096014492753625" />

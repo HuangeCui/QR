@@ -42,23 +42,6 @@
         android:inputType="textPersonName"
         android:hint="Account Name" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="20dp"
-        android:text="Password"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Account Password"/>
-
     <CheckBox
         android:id="@+id/chkRemember"
         android:layout_width="wrap_content"
@@ -71,7 +54,7 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Sign In" />
 
     <TextView

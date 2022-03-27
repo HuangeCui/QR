@@ -117,11 +117,8 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnAddQRCode:
                 add();
-
                 Intent intent = new Intent(this, SharedPicture.class);
                 startActivity(intent);
-
-
                 break;
             case R.id.btnwhoscanned:
                 /*
@@ -144,7 +141,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void back() {
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -198,53 +195,55 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+
+
     }
 
     /**public void saveGeo(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
-        builder.setMessage("Are you sure to Save Location?");
-        builder.setTitle("Information");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                savedGeo= true;
-                savePicture();
+     AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
+     builder.setMessage("Are you sure to Save Location?");
+     builder.setTitle("Information");
+     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+    savedGeo= true;
+    savePicture();
 
-            }
-        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                savedGeo = false;
-                savePicture();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();}
+    }
+    }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+    savedGeo = false;
+    savePicture();
+    }
+    });
+     AlertDialog dialog = builder.create();
+     dialog.show();}
 
-    public void savePicture(){
+     public void savePicture(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
-        builder.setMessage("Are you sure to Save Picture?");
-        builder.setTitle("Information");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                savedPicture = true;
-                notBigPhoto();
+     AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
+     builder.setMessage("Are you sure to Save Picture?");
+     builder.setTitle("Information");
+     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+    savedPicture = true;
+    notBigPhoto();
 
-            }
-        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                savedPicture = false;
-                Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
-                startActivity(intent);
+    }
+    }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+    savedPicture = false;
+    Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+    startActivity(intent);
 
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();}
+    }
+    });
+     AlertDialog dialog = builder.create();
+     dialog.show();}
 
 
      **/

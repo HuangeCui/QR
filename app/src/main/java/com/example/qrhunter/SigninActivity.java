@@ -65,21 +65,13 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signin() {
-        final EditText edtTmp1;
-        final EditText edtTmp2;
+        final EditText edtTmp;
 
-        edtTmp1 = (EditText) findViewById(R.id.txtAccount);
-        String account = edtTmp1.getText().toString();
+        edtTmp = (EditText) findViewById(R.id.txtAccount);
+        String account = edtTmp.getText().toString();
         if (account.equals("")) {
             showMessage("Account can't be empty!");
-            edtTmp1.requestFocus();
-            return;
-        }
-        edtTmp2 = (EditText) findViewById(R.id.txtPassword);
-        String password = edtTmp2.getText().toString();
-        if (password.equals("")) {
-            showMessage("Password can't be empty!");
-            edtTmp2.requestFocus();
+            edtTmp.requestFocus();
             return;
         }
 
@@ -87,7 +79,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         CollectionReference usersRef = db.collection("Users");
-        usersRef.whereEqualTo("userName", account).whereEqualTo("userPasscode", password)
+        usersRef.whereEqualTo("userName", account)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
             @Override
@@ -95,7 +87,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 if (task.isSuccessful()) {
                     if (task.getResult().isEmpty()) {
                         showMessage("Account or password error");
-                        edtTmp1.requestFocus();
+                        edtTmp.requestFocus();
                         return;
                     } else {
 //                    for (QueryDocumentSnapshot document : task.getResult()) {
@@ -109,7 +101,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                             // 把登录信息保存到本地文件中
                             SharedPreferences.Editor editor = getSharedPreferences("QRHunter", MODE_PRIVATE).edit();
                             editor.putString("userName", account);
-                            editor.putString("userPassword", password);
+                            editor.putString("userPassword", "");
                             editor.apply();
                         }
                         Intent intent = new Intent(SigninActivity.this, MainActivity.class);

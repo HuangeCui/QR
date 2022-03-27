@@ -30,9 +30,9 @@ public class User  {
         this.email = "";
         this.comment = "";
         this.code = new ArrayList<CodeScore>();
-       // this.codes = new ArrayList<>();
+        // this.codes = new ArrayList<>();
         //this.comment = "";
-       // this.scanned = new ArrayList<String>();
+        // this.scanned = new ArrayList<String>();
     }
     public User(String userName, String userID, ArrayList<QRCode> codes) {
         this.userID = userID;
@@ -50,7 +50,7 @@ public class User  {
     }
 
     public User(String userName,int amount) {
-       // this.userID = userID;
+        // this.userID = userID;
         this.userName = userName;
         this.codes = new ArrayList<>();
         this.total=amount;
@@ -87,8 +87,8 @@ public class User  {
     public int getSum(){
         //sum=0;
         //for(int i=0;i<codes.size();i++){
-       //    sum+=codes.get(i).getScore();
-       // }
+        //    sum+=codes.get(i).getScore();
+        // }
         return sum;
     }
 
@@ -98,22 +98,22 @@ public class User  {
     }
 
     public int getHighest(){
-       // highest=0;
-       // for(int i =0; i< codes.size();i++){
+        // highest=0;
+        // for(int i =0; i< codes.size();i++){
         //    if(highest<=codes.get(i).getScore()){
-         //       highest=codes.get(i).getScore();
-          //  }
-      //  }
+        //       highest=codes.get(i).getScore();
+        //  }
+        //  }
         return highest;
     }
 
     public int getUnique(){
         //unique =0;
-      //  for(int i =0; i<codes.size();i++){
+        //  for(int i =0; i<codes.size();i++){
         //    if(codes.get(i).getQRId()== userID){
-          //      unique=codes.get(i).getScore();
-         //       break;
-         //   }
+        //      unique=codes.get(i).getScore();
+        //       break;
+        //   }
         //123412341234}
         return unique;
     }

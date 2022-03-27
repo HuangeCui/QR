@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,14 +42,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 edtTmp.requestFocus();
                 return;
             }
-            edtTmp = (EditText) findViewById(R.id.txtPasswordSignup);
-            String password = edtTmp.getText().toString();
-            if (password.equals("")) {
-                showMessage("Password can't be empty!");
-                edtTmp.requestFocus();
-                return;
-            }
-            saveAccount(account, password);
+            saveAccount(account, "");
         }
     }
 
