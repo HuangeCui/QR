@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +23,7 @@ import java.text.DecimalFormat;
 
 public class SharedPicture extends AppCompatActivity {
     String imagePath;
+    FirebaseFirestore db;
 
 
     @Override
@@ -214,8 +217,25 @@ public class SharedPicture extends AppCompatActivity {
     }
 
     //save the picture on the firebase
-    public void savePhoto(){}
+    public void savePhoto(){
+        // hash
+//        db = FirebaseFirestore.getInstance();
+//        SharedData appData = new SharedData();
+//        HashScore hashScore = new HashScore();
+//        CollectionReference codeRef = db.collection("QRCodes");
+//        DocumentReference docCodeRef = codeRef.document(hashScore.hash256(appData.getQrcodekey()));
+//
+//        docCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    Map<String, Object> data = new HashMap<>();
+//                    data.put("photo", byte[]);
+//                    docCodeRef.set(data, SetOptions.merge());
+//                }
+//            }
+//        });
 
-
+    }
 
 }

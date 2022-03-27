@@ -1,5 +1,6 @@
 package com.example.qrhunter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,7 +8,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class SharedGeo extends AppCompatActivity {
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +62,25 @@ public class SharedGeo extends AppCompatActivity {
     }
 
 
-    public void saveGeo(){}
+    public void saveGeo() {
+        // hash
+//        db = FirebaseFirestore.getInstance();
+//        SharedData appData = new SharedData();
+//        HashScore hashScore = new HashScore();
+//        CollectionReference codeRef = db.collection("QRCodes");
+//        DocumentReference docCodeRef = codeRef.document(hashScore.hash256(appData.getQrcodekey()));
+//
+//        docCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    Map<String, Object> data = new HashMap<>();
+//                    data.put("shared", true);
+//                    docCodeRef.set(data, SetOptions.merge());
+//                }
+//            }
+//        });
+//    }
+    }
 
 }
