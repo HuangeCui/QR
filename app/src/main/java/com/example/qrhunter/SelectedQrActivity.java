@@ -123,7 +123,7 @@ public class SelectedQrActivity extends AppCompatActivity {
                         codeScoreList.remove(codeScoreList.get(i));
                         docUserRef.update("codes",codeScoreList);
                         docUserRef.update("total",totalNumber-1);
-                        Intent intent = new Intent(SelectedQrActivity.this,MainActivity.class);
+                        Intent intent = new Intent(SelectedQrActivity.this,UserCode.class);
                         startActivity(intent);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
