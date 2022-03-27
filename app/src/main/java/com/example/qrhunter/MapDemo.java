@@ -170,10 +170,11 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
                             double lat = geoPoint.getLatitude();
                             double lng = geoPoint.getLongitude();
                             LatLng latLng = new LatLng(lat, lng);
+                            double qrScore = snapshot.getDouble("score");
                             // calculate the distance between current location and markers
                             float results[]=new float[10];
                             Location.distanceBetween(currentlatitude,currentlongitude,lat,lng,results);
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet("Distance of this QR from you: "+results[0]+" meters"));
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet(" Score: "+qrScore+"  Distance: "+results[0]+" meters\n"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             mMap.getUiSettings().setZoomControlsEnabled(true);
