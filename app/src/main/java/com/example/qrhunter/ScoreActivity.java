@@ -116,10 +116,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 back();
                 break;
             case R.id.btnAddQRCode:
-                saveGeo();
-               // add();
-                //Intent intent = new Intent(this, MainActivity.class);
-               // startActivity(intent);
+                add();
+                Intent intent = new Intent(this, SharedPicture.class);
+                startActivity(intent);
                 break;
             case R.id.btnwhoscanned:
                 /*
@@ -200,7 +199,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void saveGeo(){
+    /**public void saveGeo(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ScoreActivity.this);
         builder.setMessage("Are you sure to Save Location?");
@@ -247,114 +246,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         dialog.show();}
 
 
-    public void notBigPhoto(){
-        SharedData appData = (SharedData) getApplication();
-        imagePath = appData.getImagepath();
-        File file = new File(imagePath);
-        double size = getFileOrFilesSize(file);
-        //Log.e(TAG, ""+size);
-        if(size<=64){
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//Environment.getExternalStorageDirectory().getAbsolutePath() + "/compresstest/test.png"
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            String str = "2";
-            int quality = Integer.parseInt(str);
-            if(bitmap != null) {
-//            bitmap.compress(Bitmap.CompressFormat.PNG, quality, baos); // 设置Bitmap.CompressFormat.PNG，quality将不起作用，PNG是无损压缩
-                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
-                byte[] bytes = baos.toByteArray();
-                Bitmap newBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                //String info = " quality: " + quality + " 压缩图片大小: " + (newBitmap.getByteCount()) + " 压缩后文件大小: " + (bytes.length) + " 宽度为: " + newBitmap.getWidth() + " 高度为: " + newBitmap.getHeight();
-                Log.e("quality", ""+bytes.length);
-                // tvCompress.setText(info);
-                // imgvCompress.setImageBitmap(newBitmap);
-            }
-
-             }
+     **/
 
 
-        //Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//Environment.getExternalStorageDirectory().getAbsolutePath() + "/compresstest/test.png"
-        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //String str = "2";//edtvQuality.getText().toString();
-        //int quality = 100;
-        //try {
-         //int quality = Integer.parseInt(str);
-      //  } catch (Exception e) {
-            //Toast.makeText(this, "请输入有效数字内容", Toast.LENGTH_SHORT).show();
-        //    e.printStackTrace();
-           // return ;
-       //}
-      //  if(bitmap != null) {
-//       //     bitmap.compress(Bitmap.CompressFormat.PNG, quality, baos); // 设置Bitmap.CompressFormat.PNG，quality将不起作用，PNG是无损压缩
-        //    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
-        //    byte[] bytes = baos.toByteArray();
-         //   Bitmap newBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            //String info = " quality: " + quality + " 压缩图片大小: " + (newBitmap.getByteCount()) + " 压缩后文件大小: " + (bytes.length) + " 宽度为: " + newBitmap.getWidth() + " 高度为: " + newBitmap.getHeight();
-          //  Log.e("quality", ""+bytes.length);
-           // tvCompress.setText(info);
-           // imgvCompress.setImageBitmap(newBitmap);
-      //  }
 
-       // if(size>=64){
-       //     changeSize();
-       // }
-
-        add();
-        Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
-        startActivity(intent);
-
-
-    }
-
-
-    public static double getFileOrFilesSize(File file) {
-
-        //File file = new File(filePath);
-        long blockSize = 0;
-        try {
-            if (file.isDirectory()) {
-                blockSize = getFileSizes(file);
-            } else {
-                blockSize = getFileSize(file);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("fail","not exist!");
-        }
-        return FormetFileSize(blockSize);
-    }
-
-    private static double FormetFileSize(long fileS) {
-        DecimalFormat df = new DecimalFormat("#.00");
-        double fileSizeLong = 0;
-        fileSizeLong = Double.valueOf(df.format((double) fileS / 1024));
-        return fileSizeLong;
-
-    }
-
-    private static long getFileSizes(File f) throws Exception {
-        long size = 0;
-        File flist[] = f.listFiles();
-        for (int i = 0; i < flist.length; i++) {
-            if (flist[i].isDirectory()) {
-                size = size + getFileSizes(flist[i]);
-            } else {
-                size = size + getFileSize(flist[i]);
-            }
-        }
-        return size;
-    }
-
-    private static long getFileSize(File file) throws Exception {
-        long size = 0;
-        if (file.exists()) {
-            FileInputStream fis = null;
-            fis = new FileInputStream(file);
-            size = fis.available();
-        } else {
-            file.createNewFile();
-            Log.e("fail","not exit!");
-        }
-        return size;
-    }
 
 }

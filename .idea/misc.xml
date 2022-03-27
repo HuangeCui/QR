@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/03 26 16.12/QR/app/src/main/res/layout/activity_score.xml" value="0.36614583333333334" />
         <entry key="..\:/3.05/QR/app/src/main/res/layout/activity_usercode.xml" value="0.3619791666666667" />
         <entry key="..\:/301qr/QR/app/src/main/res/layout/activity_profile.xml" value="0.36614583333333334" />
         <entry key="..\:/301qr/QR/app/src/main/res/layout/activity_rank.xml" value="0.36614583333333334" />
@@ -24,9 +23,18 @@
         <entry key="..\:/QR-owner/QRHunterScan/app/src/main/res/layout/activity_rank_unique.xml" value="0.25364583333333335" />
         <entry key="..\:/QR-owner/QRHunterScan/app/src/main/res/layout/activity_signin.xml" value="0.1125" />
         <entry key="..\:/QR-owner/QRHunterScan/app/src/main/res/layout/activity_signup.xml" value="0.1125" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_codecomment.xml" value="0.23703703703703705" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_codescannedby.xml" value="0.23703703703703705" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_delete_codes.xml" value="0.23703703703703705" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_map_demo.xml" value="0.23802083333333332" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_map_demo2.xml" value="0.23802083333333332" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_profile.xml" value="0.25364583333333335" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_qrcode.xml" value="0.24974358974358973" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_score.xml" value="0.19074074074074074" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_selected_qr.xml" value="0.23703703703703705" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_shared_geo.xml" value="0.24974358974358973" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_shared_picture.xml" value="0.24974358974358973" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_signup.xml" value="0.103125" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_usercode.xml" value="0.1" />
         <entry key="..\:/SourceCode/Android/prj301/QRHunter/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
@@ -39,16 +47,13 @@
         <entry key="..\:/android_file/xiaoluzzz/QR/app/src/main/res/layout/activity_signin.xml" value="0.31145833333333334" />
         <entry key="..\:/android_file/xiaoluzzz/QR/app/src/main/res/layout/activity_usercode.xml" value="0.315625" />
         <entry key="app/src/main/res/layout/activity_GenerateQR.xml" value="0.43421630859375004" />
-        <entry key="app/src/main/res/layout/activity_codecomment.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/activity_delete_codes.xml" value="0.32057342529296873" />
         <entry key="app/src/main/res/layout/activity_generate_code.xml" value="0.2830596923828125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2988199869791667" />
-        <entry key="app/src/main/res/layout/activity_map_demo.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_map_demo2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_map_demo.xml" value="0.46019072601760647" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25044657389322916" />
         <entry key="app/src/main/res/layout/activity_qrcode.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.12291666666666666" />
-        <entry key="app/src/main/res/layout/activity_selected_qr.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.27879638671874996" />
         <entry key="app/src/main/res/layout/activity_usercode.xml" value="0.23632507324218754" />
         <entry key="app/src/main/res/layout/content.xml" value="0.36096014492753625" />

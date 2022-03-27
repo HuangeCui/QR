@@ -29,7 +29,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
+        <activity
+            android:name=".SharedGeo"
+            android:exported="false" />
+        <activity
+            android:name=".SharedPicture"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SharedPicture">
+
+    <Button
+        android:id="@+id/btnBackToScan"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="Back"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:text="Share a picture?"
+        android:textSize="30sp"
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/imgQrcode"
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/btnTake"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Take Photo" />
+
+    <Button
+        android:id="@+id/btnphoto"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp"
+        android:text="use code picture"
+        android:textColor="#0000FF" />
+
+
+    <Button
+        android:id="@+id/btnShare"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Share" />
+
+    <Button
+        android:id="@+id/btntxt"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:text="I don't want to share the photo"
+        android:textColor="#0000FF"
+        android:textSize="10dp" />
+
+
+</LinearLayout>
