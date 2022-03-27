@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,6 +52,9 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
     FirebaseFirestore db;
     private int ACCESS_LOCATION_REQUEST_CODE = 10001;
     List<Address> listGeoCoder;
+    double currentlatitude;
+    double currentlongitude;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
                 startActivity(intent);
             }
         });
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 
         /*Button mylocation = findViewById(R.id.currentlocation);
@@ -91,8 +97,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
                 //search location to find QRcodes nearby
                 try {
                     listGeoCoder = new Geocoder(MapDemo.this).getFromLocationName(query, 1);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 double lng = listGeoCoder.get(0).getLongitude();
@@ -136,6 +141,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
 //        mMap.getUiSettings().setZoomControlsEnabled(true);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             enableUserlocation();
+            getcurrentlocationcoordinatestr();
 
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -164,7 +170,10 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
                             double lat = geoPoint.getLatitude();
                             double lng = geoPoint.getLongitude();
                             LatLng latLng = new LatLng(lat, lng);
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")));
+                            // calculate the distance between current location and markers
+                            float results[]=new float[10];
+                            Location.distanceBetween(currentlatitude,currentlongitude,lat,lng,results);
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet("Distance of this QR from you: "+results[0]+" meters"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -195,6 +204,30 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
         }
         mMap.setMyLocationEnabled(true);
     }
+
+    private void getcurrentlocationcoordinatestr() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
+        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                LatLng latLng=new LatLng(location.getLatitude(), location.getLongitude());
+                currentlatitude=latLng.latitude;
+                currentlongitude=latLng.longitude;
+                Log.d(TAG, "当前位置的经纬度"+ currentlatitude+" "+currentlongitude);
+            }
+        });
+
+    }
   
 
 
@@ -204,6 +237,7 @@ public class MapDemo extends FragmentActivity implements OnMapReadyCallback {
         if (requestCode == ACCESS_LOCATION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableUserlocation();
+                getcurrentlocationcoordinatestr();
             }else{
 
             }
