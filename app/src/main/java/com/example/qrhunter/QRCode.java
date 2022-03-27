@@ -1,5 +1,6 @@
 package com.example.qrhunter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class QRCode {
@@ -9,6 +10,7 @@ public class QRCode {
     private String comment;
     private String location;
     ArrayList<String> scanners;
+    File image;
 
     public QRCode() {}
 
