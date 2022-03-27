@@ -3,12 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.qrhunter">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
-
-    <!-- Camera Permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Camera Permission -->
     <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
     <!-- <uses-permission android:name="android.hardware.camera"/> -->
     <!-- <uses-permission android:name="android.hardware.camera.autofocus"/> -->
@@ -20,13 +17,9 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".SharedData"
@@ -50,8 +43,15 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDF9zT-E6vzPGQwZniAVk5BFx30Jczg5bg" />
+            android:value="YOUR_API_KEY" />
 
+        <activity
+            android:name=".MapDemo2"
+            android:exported="false"
+            android:label="@string/title_activity_map_demo2" />
+        <activity
+            android:name=".SelectedQrActivity"
+            android:exported="false" />
         <activity
             android:name=".MapDemo"
             android:exported="false"

@@ -27,6 +27,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener{
@@ -34,7 +35,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     String codeDisplay;
     FirebaseFirestore db;
 
-    final String TAG = "QRCodeActivity";
+    String TAG = "QRCodeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         db = FirebaseFirestore.getInstance();
         SharedData appData = (SharedData) getApplication();
         codeDisplay = appData.getCodedisplay();
+
+
 
         TextView textView;
         Button button;
@@ -57,6 +60,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         button.setOnClickListener(this);
 
         displayCodeInformation();
+
+
     }
 
     @Override
@@ -139,22 +144,46 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void deleteCode() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure to delete this code?");
-        builder.setTitle("Information");
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        Intent intent = getIntent();
+        Integer i = intent.getIntExtra("index", 0);
+        //String i = intent.getStringExtra("index");
+        SharedData appData = (SharedData) getApplication();
+        String username = appData.getUsername();
+        CollectionReference userRef = db.collection("Users");
+        DocumentReference docUserRef = userRef.document(username);
+        docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // delete
-                Log.d(TAG, "onClick: " + " deleting code ");
-            }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                ArrayList<HashMap> tmp_codeScoreList = (ArrayList<HashMap>) document.get("codes");
+                ArrayList<CodeScore> codeScoreList = new ArrayList<>();
+
+                for(int i=0;i<tmp_codeScoreList.size();i++){
+                    CodeScore tmp = new CodeScore((String)tmp_codeScoreList.get(i).get("code"),((Long)tmp_codeScoreList.get(i).get("score")).intValue());
+                    codeScoreList.add(tmp);
+                }
+                codeScoreList.remove(codeScoreList.get(i));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(QRCodeActivity.this);
+                builder.setMessage("Are you sure to delete this code?");
+                builder.setTitle("Information");
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // delete
+                        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + " deleting code xdxdxdxdxdxdxdxdxdxdxdxd");
+                        codeScoreList.remove(codeScoreList.get(i));
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+
     }
 
     private void updateComment() {

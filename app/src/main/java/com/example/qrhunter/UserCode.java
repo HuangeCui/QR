@@ -111,7 +111,14 @@ public class UserCode extends AppCompatActivity {
                 codeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        chosenLine=i;
+                        String userstr=codeScoreList.get(i).getCode();
+                        Log.d(TAG, "!!!!!!!"+codeScoreList.get(i).getCode());
+                        Intent intent=new Intent(UserCode.this,SelectedQrActivity.class);
+                        intent.putExtra("qrid",userstr);
+                        intent.putExtra("index", i);
+                        Long score = (Long)tmp_codeScoreList.get(i).get("score");
+                        intent.putExtra("score", score);
+                        startActivity(intent);
                     }
                 });
                 Button deleteCode = findViewById(R.id.btn_deleteCode);
@@ -129,7 +136,7 @@ public class UserCode extends AppCompatActivity {
                 codeAdapter.notifyDataSetChanged();
                 docUserRef.update("highest",codeScoreList.get(codeScoreList.size()-1).score);
 
-                lowestscore="THe highest score QR name is "+codeScoreList.get(1).code+"\n"+"It's score is "+codeScoreList.get(1).score+".";
+                lowestscore="THe highest score QR name is "+codeScoreList.get(0).code+"\n"+"It's score is "+codeScoreList.get(0).score+".";
                 highestscore="THe lowest score QR name is "+codeScoreList.get(codeScoreList.size()-1).code+"\n"+"It's score is "+codeScoreList.get(codeScoreList.size()-1).score+".";
                 /*
                 Button high = findViewById(R.id.high_code);
@@ -171,7 +178,8 @@ public class UserCode extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(UserCode.this,MainActivity.class);
+                startActivity(intent);
             }
         });
         
