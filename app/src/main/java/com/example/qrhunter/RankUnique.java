@@ -47,8 +47,9 @@ public class RankUnique extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RankUnique.this,RankActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(RankUnique.this,RankActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
 

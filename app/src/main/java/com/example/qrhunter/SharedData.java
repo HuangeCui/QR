@@ -10,6 +10,15 @@ public class SharedData extends Application {
     private String imagepath;
     private int codescore;
     private String codedisplay;
+    private String playerName;
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     public void setUsername(String username) {
         this.username = username;

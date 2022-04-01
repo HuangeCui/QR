@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                appData.setUsername(appData.getPlayerName());
                 Intent intent = new Intent(MainActivity.this, UserCode.class);
                 startActivity(intent);
             }
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                appData.setUsername(appData.getPlayerName());
                 Intent rankActivity = new Intent(MainActivity.this, RankActivity.class);
                 startActivity(rankActivity);
             }
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                appData.setUsername(appData.getPlayerName());
                 Intent rankActivity = new Intent(MainActivity.this, MapDemo.class);
                 startActivity(rankActivity);
             }
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         code.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                appData.setUsername(appData.getPlayerName());
                 Intent GenerateCOde = new Intent(MainActivity.this, GenerateCOde.class);
                 startActivity(GenerateCOde);
             }
@@ -133,15 +137,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onEvent(@Nullable final QuerySnapshot queryDocumentSnapshots, @Nullable
                             FirebaseFirestoreException error) {
+                        boolean yes = false;
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             if(user.equals(doc.getId())){
                                 Intent rankActivity = new Intent(MainActivity.this, ManageActivity.class);
                                 startActivity(rankActivity);
+                                yes=true;
                             }
-                            else{
 
-                            }
                         }
+                        if(yes == false){ notOwner();}
                     }
                 });
 
@@ -176,6 +181,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+    }
+    private void notOwner(){
+        android.app.AlertDialog dlg =new android.app.AlertDialog.Builder(MainActivity.this)
+                .setTitle("NOT Owner")
+                .setMessage("You are not a owner, can not manage")
+                .setPositiveButton("Now I know that", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        dlg.show();
     }
 
     private void signOut() {

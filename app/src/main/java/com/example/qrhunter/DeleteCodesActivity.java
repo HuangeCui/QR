@@ -13,9 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -23,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DeleteCodesActivity extends AppCompatActivity {
     FirebaseFirestore db;
@@ -71,12 +76,43 @@ public class DeleteCodesActivity extends AppCompatActivity {
             }
         });
 
+        codeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CollectionReference userRef = db.collection("QRCodes");
+                DocumentReference docUserRef = userRef.document(codeDataList.get(i));
+                //DocumentReference docUserRef = userRef.document(searchName);
+                docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                         Long score = document.getLong("score");
+                         String qrid = document.getString("qrid");
+                         Intent intent=new Intent(DeleteCodesActivity.this,SelectedQrActivity.class);
+                         intent.putExtra("qrid",qrid);
+                         intent.putExtra("index", i);
+                         intent.putExtra("score", score);
+                         intent.putExtra("check",true);
+                         startActivity(intent);
+
+                        } });
+
+               /** Intent intent=new Intent(UserCode.this,SelectedQrActivity.class);
+                intent.putExtra("qrid",userstr);
+                intent.putExtra("index", i);
+                intent.putExtra("score", score);
+                startActivity(intent);
+                return true;
+                **/
+               return false;
+            }
+        });
+
         Button btn =  findViewById(R.id.back_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DeleteCodesActivity.this,ManageActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -91,21 +127,26 @@ public class DeleteCodesActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.e("work", "Data has been deleted successfully!");
+                                   // Log.e("work", "Data has been deleted successfully!");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.d("not work", "Data could not be deleted!" + e.toString());
+                                  //  Log.d("not work", "Data could not be deleted!" + e.toString());
                                 }
                             });
 
                     codeAdapter.notifyDataSetChanged();
+                    chosenLine=0;
+
                 //}
                /// else{
                  ///   Log.e("cannot","this is own" );
               //  }
+               // db = FirebaseFirestore.getInstance();
+               // final CollectionReference collectionReference = db.collection("Users");
+
             }
 
         });

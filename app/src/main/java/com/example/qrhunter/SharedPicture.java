@@ -56,8 +56,9 @@ public class SharedPicture extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SharedPicture.this, ScoreActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SharedPicture.this, ScoreActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
 

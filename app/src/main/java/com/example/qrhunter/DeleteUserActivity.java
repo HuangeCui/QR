@@ -44,7 +44,7 @@ public class DeleteUserActivity extends AppCompatActivity {
 
         userList = findViewById(R.id.user_list);
         userDataList = new ArrayList<>();
-         userAdapter=new ArrayAdapter<>(DeleteUserActivity.this,android.R.layout.simple_list_item_1,userDataList);
+        userAdapter=new ArrayAdapter<>(DeleteUserActivity.this,android.R.layout.simple_list_item_1,userDataList);
         userList.setAdapter(userAdapter);
 
         SharedData appData = (SharedData) getApplication();
@@ -58,15 +58,30 @@ public class DeleteUserActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 chosenLine=i;
+
+
             }
         });
+
+       userList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+           @Override
+           public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+               appData.setUsername(userDataList.get(i));
+               Log.e( "onItemClick: ",userDataList.get(i) );
+               Intent intent=new Intent(DeleteUserActivity.this,UserCode.class);
+               startActivity(intent);
+               return true;
+           }
+       });
+
 
         Button btn =  findViewById(R.id.back_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DeleteUserActivity.this,ManageActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(DeleteUserActivity.this,ManageActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
 
@@ -92,6 +107,7 @@ public class DeleteUserActivity extends AppCompatActivity {
                         });
 
                 userAdapter.notifyDataSetChanged();
+                chosenLine=0;
             }
                 else{
                     Log.e("cannot","this is own" );

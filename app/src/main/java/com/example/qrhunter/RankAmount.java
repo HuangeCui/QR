@@ -28,8 +28,9 @@ public class RankAmount extends AppCompatActivity {
     private ArrayAdapter<User> userAdapter;
     private ArrayList<User> userDataList;
     private int chosenLine = 0;
-   // private String userId;//="1234";
     FirebaseFirestore db;
+    TextView content;
+    String userId;
 
 
     @Override
@@ -37,20 +38,21 @@ public class RankAmount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank_amount);
 
-        TextView content = findViewById(R.id.user_position01);
+        content = findViewById(R.id.user_position01);
         userList = findViewById(R.id.amount_rank_list);
         userDataList = new ArrayList<>();
 
         SharedData appData = (SharedData) getApplication();
-        String userId = appData.getUsername();
+        userId = appData.getUsername();
 
 
         Button btn =  findViewById(R.id.back_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RankAmount.this,RankActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(RankAmount.this,RankActivity.class);
+               // startActivity(intent);
+                finish();
             }
         });
 
@@ -69,22 +71,11 @@ public class RankAmount extends AppCompatActivity {
                     Log.e("total",""+amount);
                 }
 
-                Collections.sort(userDataList, new Comparator<User>() {
-                    @Override
-                    public int compare(User user, User user2) {
-                        int i=-1*(user.getTotal()-user2.getTotal());
-                        return i;
-                    }
-                });
-                userAdapter = new CustomList(RankAmount.this, userDataList);
-                userList.setAdapter(userAdapter);
-
-                for(int i = 0; i< userDataList.size();i++){
-                    if( userDataList.get(i).getUserName().equals(userId)){
-                        int index = i+1;
-                        content.setText("User Rank "+index);
-                        break; }
-                }
+                 sortTotal(userDataList);
+                 userAdapter = new CustomList(RankAmount.this, userDataList);
+                 userList.setAdapter(userAdapter);
+                 String str =findTotal(userDataList, userId);
+                 content.setText(str);
 
 
 
@@ -100,6 +91,31 @@ public class RankAmount extends AppCompatActivity {
 
 
     }
+
+    public void sortTotal(ArrayList<User> userDataList){
+        Collections.sort(userDataList, new Comparator<User>() {
+            @Override
+            public int compare(User user, User user2) {
+                int i=-1*(user.getTotal()-user2.getTotal());
+                return i;
+            }
+        });
+    }
+
+    public String findTotal(ArrayList<User> userDataList, String userId){
+        String str ="";
+        for(int i = 0; i< userDataList.size();i++){
+            if( userDataList.get(i).getUserName().equals(userId)){
+                int index = i+1;
+                str = "User " +userId + " Rank " +index;
+                break; }
+        }
+        return str;
+
+    }
+
+
+
 
 
 

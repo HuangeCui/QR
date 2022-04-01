@@ -93,6 +93,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 //                    for (QueryDocumentSnapshot document : task.getResult()) {
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
                         appData.setUsername(document.getId());
+                        appData.setPlayerName(document.getId());
                         Log.d(TAG, document.getId() + " => " + document.getData());
 //                        Log.d("TAG", "onComplete1: " + " => " + document.toObject(User.class));
 //                        Log.d("TAG", "onComplete2: " + " => " + appData.getUser().getName() + "  " + appData.getUser().getPassword());

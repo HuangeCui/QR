@@ -31,8 +31,9 @@ public class SharedGeo extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SharedGeo.this, SharedPicture.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SharedGeo.this, SharedPicture.class);
+                //startActivity(intent);
+                finish();
             }
         });
 

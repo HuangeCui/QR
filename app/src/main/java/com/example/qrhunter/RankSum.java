@@ -48,8 +48,9 @@ public class RankSum extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RankSum.this,RankActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(RankSum.this,RankActivity.class);
+              ///  startActivity(intent);
+                finish();
             }
         });
 

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,8 +24,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,11 +44,18 @@ public class UserCode extends AppCompatActivity {
     AlertDialog dialog;
     EditText editText;
     SharedData appData;
+    String username;
     private int chosenLine=0;
     Button buttonhighest;
     Button buttonlowest;
     String highestscore="";
     String lowestscore="";
+    ArrayAdapter<CodeScore> codeAdapter;
+    ArrayList<CodeScore> codeScoreList;
+    TextView txtTotalScore;
+    TextView txtNumber ;
+    ListView codeList ;
+    EditText txtEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +66,7 @@ public class UserCode extends AppCompatActivity {
 
         SharedData appData = (SharedData) getApplication();
         TextView txtUsername = findViewById(R.id.txtUsername);
-        String username = appData.getUsername();
+        username = appData.getUsername();
         txtUsername.setText(username);
 
 
@@ -65,10 +77,11 @@ public class UserCode extends AppCompatActivity {
         textView.setText(searchName);
     */
         db = FirebaseFirestore.getInstance();
-        TextView txtTotalScore = findViewById(R.id.txtTotalScore);
-        TextView txtNumber = findViewById(R.id.txtNumber);
-        ListView codeList = findViewById(R.id.code_list);
-        EditText txtEmail = findViewById(R.id.usercontact);
+
+        txtTotalScore = findViewById(R.id.txtTotalScore);
+        txtNumber = findViewById(R.id.txtNumber);
+        codeList = findViewById(R.id.code_list);
+        txtEmail = findViewById(R.id.usercontact);
 
 
         CollectionReference userRef = db.collection("Users");
@@ -83,7 +96,8 @@ public class UserCode extends AppCompatActivity {
                 String userEmail = document.getString("userEmail");
                 //ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                 ArrayList<HashMap> tmp_codeScoreList = (ArrayList<HashMap>) document.get("codes");
-                ArrayList<CodeScore> codeScoreList = new ArrayList<>();
+                //ArrayList<CodeScore>
+                codeScoreList = new ArrayList<>();
 
                 for(int i=0;i<tmp_codeScoreList.size();i++){
                     CodeScore tmp = new CodeScore((String)tmp_codeScoreList.get(i).get("code"),((Long)tmp_codeScoreList.get(i).get("score")).intValue());
@@ -91,7 +105,7 @@ public class UserCode extends AppCompatActivity {
                 }
 
 
-                ArrayAdapter<CodeScore> codeAdapter;
+                //ArrayAdapter<CodeScore> codeAdapter;
                 codeAdapter = new ArrayAdapter<CodeScore>(UserCode.this, android.R.layout.simple_list_item_1,codeScoreList);
                 txtTotalScore.setText(totalScore.toString());
                 txtNumber.setText(totalNumber.toString());
@@ -112,15 +126,37 @@ public class UserCode extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         String userstr=codeScoreList.get(i).getCode();
-                        Log.d(TAG, "!!!!!!!"+codeScoreList.get(i).getCode());
-                        Intent intent=new Intent(UserCode.this,SelectedQrActivity.class);
-                        intent.putExtra("qrid",userstr);
-                        intent.putExtra("index", i);
-                        Long score = (Long)tmp_codeScoreList.get(i).get("score");
-                        intent.putExtra("score", score);
-                        startActivity(intent);
+
+                        CollectionReference codes  = db.collection("QRCodes");
+                        codes.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable final QuerySnapshot queryDocumentSnapshots, @Nullable
+                                    FirebaseFirestoreException error) {
+                                boolean exit = false;
+                                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                    String ID = doc.getId();
+                                    if(ID.equals(userstr)){
+                                        exit = true; }
+                                }
+                                if(exit==false){
+                                    showDelete(i);
+
+                                   // Log.e("chosenLine", ""+i);
+                                }
+                                else{Intent intent=new Intent(UserCode.this,SelectedQrActivity.class);
+                                    intent.putExtra("qrid",userstr);
+                                    intent.putExtra("index", i);
+                                    Long score = (Long)tmp_codeScoreList.get(i).get("score");
+                                    intent.putExtra("score", score);
+                                    startActivity(intent);}
+
+                            }
+                        });
+                        //Log.d(TAG, "!!!!!!!"+codeScoreList.get(i).getCode());
                     }
                 });
+
+
                 Button deleteCode = findViewById(R.id.btn_deleteCode);
                 deleteCode.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,12 +192,17 @@ public class UserCode extends AppCompatActivity {
                         }
                     }
                 });
+
+
                 Collections.sort(codeScoreList);
                 codeAdapter.notifyDataSetChanged();
                 if (codeScoreList.size()>=1) {
                     docUserRef.update("highest",codeScoreList.get(codeScoreList.size()-1).score);
-                    lowestscore="THe highest score QR name is "+codeScoreList.get(0).code+"\n"+"It's score is "+codeScoreList.get(0).score+".";
-                    highestscore="THe lowest score QR name is "+codeScoreList.get(codeScoreList.size()-1).code+"\n"+"It's score is "+codeScoreList.get(codeScoreList.size()-1).score+".";
+                    lowestscore="THe  lowest score QR name is "+codeScoreList.get(0).code+"\n"+"It's score is "+codeScoreList.get(0).score+".";
+                    highestscore="THe highest score QR name is "+codeScoreList.get(codeScoreList.size()-1).code+"\n"+"It's score is "+codeScoreList.get(codeScoreList.size()-1).score+".";
+                }else{
+                    lowestscore = "There no codes";
+                    highestscore = "There no codes";
                 }
                 /*
                 Button high = findViewById(R.id.high_code);
@@ -203,8 +244,10 @@ public class UserCode extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserCode.this,MainActivity.class);
-                startActivity(intent);
+                appData.setUsername(appData.getPlayerName());
+                //Intent intent = new Intent(UserCode.this,MainActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
 
@@ -239,4 +282,56 @@ public class UserCode extends AppCompatActivity {
 
 
     }
+
+    public void showDelete(int chosen){
+        AlertDialog dlg =new AlertDialog.Builder(UserCode.this)
+                .setTitle("QR Code is not exist1")
+                .setMessage("This code has already been removed from database by owner,but you can keep the score")
+                .setPositiveButton("Now I know that", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+
+                    }
+                })
+                .setNegativeButton("Delete code", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        CollectionReference codeRef = db.collection("Users");
+                        //hashScore.hash256(codeScoreList.get(chosenLine).getCode())
+                        DocumentReference docUserRef = codeRef.document(username);
+                        docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                DocumentSnapshot document = task.getResult();
+                                Long totalNumber = document.getLong("total")-1;
+                                Long totalScore = document.getLong("sum")-codeScoreList.get(chosenLine).getScore();
+                                codeScoreList.remove(codeScoreList.get(chosen));
+                                docUserRef.update("codes",codeScoreList);
+                                docUserRef.update("total",totalNumber);
+                                docUserRef.update("sum",totalScore);
+                                docUserRef.update("highest",codeScoreList.get(codeScoreList.size()-1).score);
+                                txtTotalScore.setText(totalScore.toString());
+                                txtNumber.setText(totalNumber.toString());
+                                if(codeScoreList.size()>=1) {
+                                    lowestscore = "THe  lowest score QR name is " + codeScoreList.get(0).code + "\n" + "It's score is " + codeScoreList.get(0).score + ".";
+                                    highestscore = "THe highest score QR name is " + codeScoreList.get(codeScoreList.size() - 1).code + "\n" + "It's score is " + codeScoreList.get(codeScoreList.size() - 1).score + ".";
+                                }else{
+                                    lowestscore = "There no codes";
+                                    highestscore = "There no codes";
+                                }
+                                codeAdapter.notifyDataSetChanged();
+                                }});
+                        dialogInterface.dismiss();
+
+
+
+                    }
+                })
+                .create();
+        dlg.show();
+
+    }
+
 }

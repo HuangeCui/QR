@@ -44,7 +44,7 @@ import java.util.Map;
 public class ScoreActivity extends AppCompatActivity implements View.OnClickListener {
     String qrCode;
     String imagePath;
-    int score;
+    int  score;
     String userName;
     FirebaseFirestore db;
     Boolean savedPicture = false;
@@ -70,6 +70,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         qrCode = appData.getQrcode();
         imagePath = appData.getImagepath();
         userName = appData.getUsername();
+        qrCode = "123";
         ImageView imageView = findViewById(R.id.imgQrcode);
         Log.d(TAG, "onCreate: " + imagePath + "    " + qrCode);
 
@@ -162,7 +163,13 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                     ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                     codeScoreList.add(new CodeScore(qrCode, score));
                     data.put("codes", codeScoreList);
+                   // qrCode = "123";
+                    //Long var = (Long) score;
+                    if(qrCode.equals(userName)){
+                        data.put("unique",score);
+                    }
                     docUserRef.set(data, SetOptions.merge());
+
                     Log.d(TAG, "User documents write success. ");
                 } else {
                     Log.d(TAG, "Error getting user documents: ", task.getException());
@@ -197,7 +204,11 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+
+
     }
+
+
 
     /**public void saveGeo(){
 

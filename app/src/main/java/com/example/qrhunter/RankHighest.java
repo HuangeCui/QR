@@ -47,8 +47,9 @@ public class RankHighest extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RankHighest.this,RankActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(RankHighest.this,RankActivity.class);
+               // startActivity(intent);
+                finish();
             }
         });
 

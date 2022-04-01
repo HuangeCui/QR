@@ -27,6 +27,7 @@ import java.util.HashMap;
 public class SelectedQrActivity extends AppCompatActivity {
     String codeDisplay;
     FirebaseFirestore db;
+    boolean check =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,9 @@ public class SelectedQrActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selected_qr);
         Intent intent=getIntent();
         String qrid=intent.getStringExtra("qrid");
+
+        check =intent.getBooleanExtra("check",false);
+
         Log.d(TAG, "从UserCode传递过来的参数"+qrid);
         db = FirebaseFirestore.getInstance();
         SharedData appData = (SharedData) getApplication();
@@ -53,7 +57,12 @@ public class SelectedQrActivity extends AppCompatActivity {
         deletebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(check==false){
                 deleteCode();
+                }
+                else{
+                    showdetail();
+                }
             }
         });
 
@@ -86,6 +95,19 @@ public class SelectedQrActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void showdetail(){
+        android.app.AlertDialog dlg =new android.app.AlertDialog.Builder(SelectedQrActivity.this)
+                .setTitle("Can not click")
+                .setMessage("This is for owner to know the detail of code, if want operate the code, go to the profile")
+                .setPositiveButton("Now I know that", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        dlg.show();
     }
 
 
