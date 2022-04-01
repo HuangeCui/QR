@@ -89,8 +89,8 @@ public class SelectedQrActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent mapdemo2 = new Intent(SelectedQrActivity.this, MapDemo2.class);
-                startActivity(mapdemo2);
                 mapdemo2.putExtra("strqrid",qrid);
+                startActivity(mapdemo2);
 
             }
         });
@@ -132,7 +132,6 @@ public class SelectedQrActivity extends AppCompatActivity {
                     CodeScore tmp = new CodeScore((String)tmp_codeScoreList.get(i).get("code"),((Long)tmp_codeScoreList.get(i).get("score")).intValue());
                     codeScoreList.add(tmp);
                 }
-                //codeScoreList.remove(codeScoreList.get(i));
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SelectedQrActivity.this);
                 builder.setMessage("Are you sure to delete this code?");

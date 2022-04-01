@@ -96,7 +96,6 @@ public class UserCode extends AppCompatActivity {
                 String userEmail = document.getString("userEmail");
                 //ArrayList<CodeScore> codeScoreList = (ArrayList<CodeScore>) document.get("codes");
                 ArrayList<HashMap> tmp_codeScoreList = (ArrayList<HashMap>) document.get("codes");
-                //ArrayList<CodeScore>
                 codeScoreList = new ArrayList<>();
 
                 for(int i=0;i<tmp_codeScoreList.size();i++){
@@ -105,7 +104,7 @@ public class UserCode extends AppCompatActivity {
                 }
 
 
-                //ArrayAdapter<CodeScore> codeAdapter;
+                //ArrayAdapter<CodeScore> codeAdapter;111
                 codeAdapter = new ArrayAdapter<CodeScore>(UserCode.this, android.R.layout.simple_list_item_1,codeScoreList);
                 txtTotalScore.setText(totalScore.toString());
                 txtNumber.setText(totalNumber.toString());
@@ -140,8 +139,6 @@ public class UserCode extends AppCompatActivity {
                                 }
                                 if(exit==false){
                                     showDelete(i);
-
-                                   // Log.e("chosenLine", ""+i);
                                 }
                                 else{Intent intent=new Intent(UserCode.this,SelectedQrActivity.class);
                                     intent.putExtra("qrid",userstr);
@@ -152,46 +149,9 @@ public class UserCode extends AppCompatActivity {
 
                             }
                         });
-                        //Log.d(TAG, "!!!!!!!"+codeScoreList.get(i).getCode());
                     }
                 });
 
-
-                Button deleteCode = findViewById(R.id.btn_deleteCode);
-                deleteCode.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                        codeScoreList.remove(codeScoreList.get(chosenLine));
-//                        docUserRef.update("codes",codeScoreList);
-//                        docUserRef.update("total",totalNumber-1);
-//                        //docUserRef.update("sum",totalScore-(long) codeScoreList.get(chosenLine));
-//                        codeList.setAdapter(codeAdapter);
-                        if (codeScoreList.size()>=1) {
-                            // 要从QrCodes里面找到code，从code里的scanner里删除user
-                            HashScore hashScore = new HashScore();
-                            CollectionReference codeRef = db.collection("QRCodes");
-                            DocumentReference docCodeRef = codeRef.document(hashScore.hash256(codeScoreList.get(chosenLine).getCode()));
-
-                            docCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot document = task.getResult();
-                                        ArrayList<String> scannerList = (ArrayList<String>) document.get("scanners");
-                                        scannerList.remove(username);
-                                        docCodeRef.update("scanners", scannerList);
-                                    }
-                                }
-                            });
-
-                            docUserRef.update("total", totalNumber - 1);
-                            docUserRef.update("sum",totalScore-codeScoreList.get(chosenLine).getScore());
-                            codeScoreList.remove(codeScoreList.get(chosenLine));
-                            docUserRef.update("codes", codeScoreList);
-                            codeAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
 
 
                 Collections.sort(codeScoreList);
@@ -204,28 +164,12 @@ public class UserCode extends AppCompatActivity {
                     lowestscore = "There no codes";
                     highestscore = "There no codes";
                 }
-                /*
-                Button high = findViewById(R.id.high_code);
-                high.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Collections.sort(codeScoreList, new Comparator<CodeScore>() {
-                            @Override
-                            public int compare(CodeScore codeScore, CodeScore t1) {
-                                int i = -1 * (codeScore.getScore()-t1.getScore());
-                                return i;
-                            }
-                        });
-                    }
-                });
-
-                */
 
             }
         });
 
-        buttonhighest = (Button) findViewById(R.id.high_code);
-        buttonlowest = (Button) findViewById(R.id.low_code);
+        buttonhighest = findViewById(R.id.high_code);
+        buttonlowest = findViewById(R.id.low_code);
 
         buttonhighest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,9 +189,8 @@ public class UserCode extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appData.setUsername(appData.getPlayerName());
-                //Intent intent = new Intent(UserCode.this,MainActivity.class);
-                //startActivity(intent);
-                finish();
+                Intent intent = new Intent(UserCode.this,MainActivity.class);
+                startActivity(intent);
             }
         });
 

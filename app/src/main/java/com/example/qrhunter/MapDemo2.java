@@ -77,8 +77,9 @@ public class MapDemo2 extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
         db = FirebaseFirestore.getInstance();
         CollectionReference locationRef = db.collection("QRCodes");
+        positionid = getIntent().getStringExtra("strqrid");
         Log.d(TAG,"得到的信息xxxxxxxxxxx"+positionid);
-        /*
+
         DocumentReference docUserRef = locationRef.document(positionid);
         docUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -88,22 +89,11 @@ public class MapDemo2 extends FragmentActivity implements OnMapReadyCallback {
                 currentlat = currentstr.getLatitude();
                 currentlng = currentstr.getLongitude();
                 Log.d(TAG,"!!!!!!!!!!"+currentlat+"注意注意"+currentlng);
+                LatLng latLng = new LatLng(currentlat, currentlng);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             }
         });
 
-        db.document(positionid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d(TAG,"得到的信息xxxxxxxxxxx"+documentSnapshot.getData());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(TAG,"OnFailure: ",e);
-            }
-        });
-
-         */
 
 
 
@@ -117,7 +107,6 @@ public class MapDemo2 extends FragmentActivity implements OnMapReadyCallback {
                         Log.d(TAG, "onSuccess: getting the data");
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot snapshot : snapshotList) {
-                            //Log.d(TAG, "onSuccess: " + snapshot.getData().toString());
                             Log.d(TAG, "onSuccess: " + snapshot.getGeoPoint("geoPoint"));
                             GeoPoint geoPoint = snapshot.getGeoPoint("geoPoint");
                             double lat = geoPoint.getLatitude();
@@ -125,11 +114,7 @@ public class MapDemo2 extends FragmentActivity implements OnMapReadyCallback {
                             LatLng latLng = new LatLng(lat, lng);
                             double qrScore = snapshot.getDouble("score");
                             // calculate the distance between current location and markers
-                            float results[]=new float[10];
-                            //Location.distanceBetween(currentlatitude,currentlongitude,lat,lng,results);
-                            //mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet(" Score: "+qrScore+"  Distance: "+results[0]+" meters"));
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet(" Score: "+qrScore+"  Distance: ??? meters"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(snapshot.getString("qrid")).snippet(" Score: "+qrScore));
                             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             mMap.getUiSettings().setZoomControlsEnabled(true);
 
