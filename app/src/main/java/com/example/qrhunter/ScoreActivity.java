@@ -177,8 +177,9 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
             }
         });
         // If Code exists, read it out, create it if it does not exist, and write it back by modifying the parameters
+        HashScore hashScore = new HashScore();
         CollectionReference codesRef = db.collection("QRCodes");
-        DocumentReference docCodeRef = codesRef.document(qrCode);
+        DocumentReference docCodeRef = codesRef.document(hashScore.hash256(qrCode));
         docCodeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
