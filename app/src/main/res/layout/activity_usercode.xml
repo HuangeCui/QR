@@ -11,11 +11,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="60dp">
-
+        <Button
+            android:id="@+id/back_to_profile"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="back">
+        </Button>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/txtUsername"
                 android:layout_width="wrap_content"
@@ -24,12 +30,7 @@
                 android:text="UserName"
                 android:textSize="26dp"
                 android:textColor="@color/black" />
-            <Button
-                android:id="@+id/btn_deleteCode"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="100dp"
-                android:text="Delete"/>
+
 
         </LinearLayout>
 
@@ -69,12 +70,7 @@
                 android:layout_width="160dp"
                 android:layout_height="50dp"
                 android:text="Show lowest"/>
-            <Button
-                android:id="@+id/back_to_profile"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="back">
-            </Button>
+
         </LinearLayout>
 
         <LinearLayout
