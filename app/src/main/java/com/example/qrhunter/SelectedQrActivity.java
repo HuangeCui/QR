@@ -42,7 +42,8 @@ public class SelectedQrActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         SharedData appData = (SharedData) getApplication();
         codeDisplay = appData.getCodedisplay();
-
+        TextView qr = findViewById(R.id.txtQrcode);
+        qr.setText(qrid);
         TextView textView;
         // who scanned this qrCode
         textView = findViewById(R.id.txtElse);
@@ -65,7 +66,7 @@ public class SelectedQrActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(check==false){
-                deleteCode();
+                    deleteCode();
                 }
                 else{
                     showdetail();

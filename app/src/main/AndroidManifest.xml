@@ -30,6 +30,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
+            android:name=".SelectedSearchUserQr"
+            android:exported="false" />
+        <activity
+            android:name=".SearchUserCode"
+            android:exported="false" />
+        <activity
             android:name=".WhoAlsoScan"
             android:exported="false" />
         <activity

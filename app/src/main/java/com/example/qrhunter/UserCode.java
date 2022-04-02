@@ -40,10 +40,6 @@ import java.util.Map;
 public class UserCode extends AppCompatActivity {
 
     FirebaseFirestore db;
-    TextView textView;
-    AlertDialog dialog;
-    EditText editText;
-    SharedData appData;
     String username;
     private int chosenLine=0;
     Button buttonhighest;
@@ -222,8 +218,6 @@ public class UserCode extends AppCompatActivity {
                 })
                 .create();
         dlg.show();
-
-
     }
     public void lowestDialog(String message){
         AlertDialog dlg =new AlertDialog.Builder(UserCode.this)
@@ -280,7 +274,7 @@ public class UserCode extends AppCompatActivity {
                                     highestscore = "There no codes";
                                 }
                                 codeAdapter.notifyDataSetChanged();
-                                }});
+                            }});
                         dialogInterface.dismiss();
 
 
