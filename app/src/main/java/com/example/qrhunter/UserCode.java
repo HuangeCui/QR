@@ -199,7 +199,6 @@ public class UserCode extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appData.setUsername(appData.getPlayerName());
                 Intent intent = new Intent(UserCode.this,MainActivity.class);
                 startActivity(intent);
             }
