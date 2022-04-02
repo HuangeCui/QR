@@ -26,8 +26,8 @@
         <TextView
             android:id="@+id/toshow"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textSize="30sp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
             android:textColor="#0000FF"
             android:text="This code also scanned by:"/>
 
