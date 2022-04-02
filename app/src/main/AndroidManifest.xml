@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
+            android:name=".WhoAlsoScan"
+            android:exported="false" />
+        <activity
             android:name=".SharedGeo"
             android:exported="false" />
         <activity

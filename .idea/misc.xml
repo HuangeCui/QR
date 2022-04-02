@@ -53,13 +53,22 @@
         <entry key="app/src/main/res/layout/activity_delete_codes.xml" value="0.32057342529296873" />
         <entry key="app/src/main/res/layout/activity_generate_code.xml" value="0.2830596923828125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2988199869791667" />
+        <entry key="app/src/main/res/layout/activity_manage.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_map_demo.xml" value="0.46019072601760647" />
+        <entry key="app/src/main/res/layout/activity_map_demo2.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25044657389322916" />
         <entry key="app/src/main/res/layout/activity_qrcode.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/activity_rank.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/activity_rank_amount.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/activity_rank_highest.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/activity_rank_sum.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/activity_rank_unique.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.12291666666666666" />
+        <entry key="app/src/main/res/layout/activity_selected_qr.xml" value="0.3675925925925926" />
         <entry key="app/src/main/res/layout/activity_signin.xml" value="0.12291666666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.27879638671874996" />
         <entry key="app/src/main/res/layout/activity_usercode.xml" value="0.23632507324218754" />
+        <entry key="app/src/main/res/layout/activity_who_also_scan.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/content.xml" value="0.36096014492753625" />
       </map>
     </option>
