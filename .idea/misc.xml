@@ -33,6 +33,7 @@
         <entry key="..\:/QR/app/src/main/res/layout/activity_map_demo2.xml" value="0.23802083333333332" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_profile.xml" value="0.25364583333333335" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_qrcode.xml" value="0.24974358974358973" />
+        <entry key="..\:/QR/app/src/main/res/layout/activity_rank_amount.xml" value="0.23802083333333332" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_score.xml" value="0.19074074074074074" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_selected_qr.xml" value="0.23703703703703705" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_share.xml" value="0.16799999999999998" />
@@ -40,6 +41,7 @@
         <entry key="..\:/QR/app/src/main/res/layout/activity_shared_picture.xml" value="0.24974358974358973" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_signup.xml" value="0.103125" />
         <entry key="..\:/QR/app/src/main/res/layout/activity_usercode.xml" value="0.1" />
+        <entry key="..\:/QR/app/src/main/res/layout/user_content.xml" value="0.5972006220839814" />
         <entry key="..\:/SourceCode/Android/prj301/QRHunter/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="..\:/SourceCode/Android/prj301/QRHunter/app/src/main/res/layout/activity_scan.xml" value="0.1296875" />
         <entry key="..\:/SourceCode/Android/prj301/QRHunter/app/src/main/res/layout/activity_score.xml" value="0.264" />

@@ -56,6 +56,7 @@ public class UserCode extends AppCompatActivity {
     TextView txtNumber ;
     ListView codeList ;
     EditText txtEmail;
+    Boolean check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,8 @@ public class UserCode extends AppCompatActivity {
         username = appData.getUsername();
         txtUsername.setText(username);
 
+        Intent intent = getIntent();
+        check =intent.getBooleanExtra("check",false);
 
     /*
         appData = (SharedData) getApplication();
@@ -115,8 +118,12 @@ public class UserCode extends AppCompatActivity {
                 changeEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String email = txtEmail.getText().toString();
-                        docUserRef.update("userEmail", email);
+                        if(!check) {
+                            String email = txtEmail.getText().toString();
+                            docUserRef.update("userEmail", email);
+                        }else{
+                            showMessage();
+                        }
                     }
                 });
 
@@ -124,9 +131,11 @@ public class UserCode extends AppCompatActivity {
                 codeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        String userstr=codeScoreList.get(i).getCode();
 
-                        CollectionReference codes  = db.collection("QRCodes");
+                        if(!check){
+                        String userstr = codeScoreList.get(i).getCode();
+
+                        CollectionReference codes = db.collection("QRCodes");
                         codes.addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable final QuerySnapshot queryDocumentSnapshots, @Nullable
@@ -134,21 +143,27 @@ public class UserCode extends AppCompatActivity {
                                 boolean exit = false;
                                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                                     String ID = doc.getId();
-                                    if(ID.equals(userstr)){
-                                        exit = true; }
+                                    if (ID.equals(userstr)) {
+                                        exit = true;
+                                    }
                                 }
-                                if(exit==false){
+                                if (exit == false) {
                                     showDelete(i);
-                                }
-                                else{Intent intent=new Intent(UserCode.this,SelectedQrActivity.class);
-                                    intent.putExtra("qrid",userstr);
+                                } else {
+                                    Intent intent = new Intent(UserCode.this, SelectedQrActivity.class);
+                                    intent.putExtra("qrid", userstr);
                                     intent.putExtra("index", i);
-                                    Long score = (Long)tmp_codeScoreList.get(i).get("score");
+                                    Long score = (Long) tmp_codeScoreList.get(i).get("score");
                                     intent.putExtra("score", score);
-                                    startActivity(intent);}
+                                    startActivity(intent);
+                                }
 
                             }
                         });
+
+                    }else{
+                            showMessage();
+                        }
                     }
                 });
 
@@ -275,6 +290,20 @@ public class UserCode extends AppCompatActivity {
                 .create();
         dlg.show();
 
+    }
+
+    public void showMessage(){
+        AlertDialog dlg =new AlertDialog.Builder(UserCode.this)
+                .setTitle("Only for status")
+                .setMessage("You only can check the status can not change or see the detail ")
+                .setPositiveButton("Now I know that", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        dlg.show();
     }
 
 }

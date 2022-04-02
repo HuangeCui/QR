@@ -23,12 +23,19 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/txtSearchUser"
-            android:layout_width="match_parent"
+            android:layout_width="131dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:imeOptions="actionSearch"
             app:queryHint="Search User" />
+
+        <Button
+            android:id="@+id/searchbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Search By code" />
 
 
     </LinearLayout>

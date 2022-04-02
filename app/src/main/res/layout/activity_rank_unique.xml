@@ -17,6 +17,25 @@
 
         </Button>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtUserCustom"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txtScoreCustom1"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/amount_rank_list"
@@ -29,6 +48,6 @@
         android:id="@+id/user_position01"
         android:layout_width="match_parent"
         android:layout_height="87dp"
-        android:textSize="30sp"/>
+        android:textSize="30dp"/>
 
 </LinearLayout>

@@ -41,7 +41,8 @@ public class RankHighest extends AppCompatActivity {
         userDataList = new ArrayList<>();
         SharedData appData = (SharedData) getApplication();
         String userId = appData.getUsername();
-
+        TextView name = findViewById(R.id.txtUserCustom);
+        TextView score = findViewById(R.id.txtScoreCustom1);
 
         Button btn =  findViewById(R.id.back_button);
         btn.setOnClickListener(new View.OnClickListener() {

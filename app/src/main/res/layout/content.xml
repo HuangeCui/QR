@@ -8,19 +8,17 @@
 
     <TextView
         android:id="@+id/city_text"
-        android:layout_width="wrap_content"
+        android:layout_width="205dp"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         android:text="City"
-        android:textSize="30sp">
+        android:textSize="20sp">
     </TextView>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:id="@+id/province_text"
-        android:textSize="30sp"
-        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
         android:text="Province">
     </TextView>
 
