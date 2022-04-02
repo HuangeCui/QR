@@ -81,10 +81,27 @@ public class SelectedQrActivity extends AppCompatActivity {
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent;
+                if (appData.getComefromme()) {
+                    intent = new Intent(SelectedQrActivity.this, UserCode.class);
+                } else {
+                    intent = new Intent(SelectedQrActivity.this, SearchUserCode.class);
+                }
+                startActivity(intent);
             }
         });
 
+        //comment button
+        Button commbutton;
+        commbutton = findViewById(R.id.btnCodeComment);
+        commbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent comment = new Intent(SelectedQrActivity.this, CodeCommentActivity.class);
+                comment.putExtra("qrid", qrid);
+                startActivity(comment);
+            }
+        });
 
         //displayCodeInformation();
         Long score = intent.getLongExtra("score", 0);

@@ -39,20 +39,33 @@
     <EditText
         android:id="@+id/txtCodeComment"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/edit_background"
-        android:padding="10dp"
-        android:gravity="top"
         android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:background="@drawable/edit_background"
+        android:gravity="top"
         android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/txtAllComments"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="true"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:background="@drawable/edit_background" />
 
     <Button
         android:id="@+id/btnBackToCodeImage"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_gravity="center"
         android:text="Back" />
 

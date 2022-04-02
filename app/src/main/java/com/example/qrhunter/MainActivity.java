@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseFirestore db;
     SharedData appData;
     Boolean scancode = false;
-    String player="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String userPassword = preferences.getString("userPassword", "");
         if (!userName.equals("")) {
             appData.setUsername(userName);
-            player = userName;
+            appData.setPlayerName(userName);
         }
 
         String user = appData.getUsername();
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appData.setUsername(player);
+                appData.setUsername(appData.getPlayerName());
                 Intent intent = new Intent(MainActivity.this, UserCode.class);
                 startActivity(intent);
             }
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appData.setUsername(player);
+                appData.setUsername(appData.getPlayerName());
                 Intent rankActivity = new Intent(MainActivity.this, RankActivity.class);
                 startActivity(rankActivity);
             }
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appData.setUsername(player);
+                appData.setUsername(appData.getPlayerName());
                 Intent rankActivity = new Intent(MainActivity.this, MapDemo.class);
                 startActivity(rankActivity);
             }
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         code.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appData.setUsername(player);
+                appData.setUsername(appData.getPlayerName());
                 Intent GenerateCOde = new Intent(MainActivity.this, GenerateCOde.class);
                 startActivity(GenerateCOde);
             }
@@ -173,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnPlay:
-                appData.setUsername(player);
+                appData.setUsername(appData.getPlayerName());
                 scancode =true;
                 scanCode();
                 break;
@@ -263,11 +262,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                 /**if(search == false){
-                    Intent intent = new Intent(this, UserProfile.class);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(this, ScoreActivity.class);
-                    startActivity(intent);}**/
+                 Intent intent = new Intent(this, UserProfile.class);
+                 startActivity(intent);
+                 }else{
+                 Intent intent = new Intent(this, ScoreActivity.class);
+                 startActivity(intent);}**/
 
 //
             } else {

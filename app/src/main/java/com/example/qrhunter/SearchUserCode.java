@@ -36,6 +36,7 @@ import java.util.HashMap;
 public class SearchUserCode extends AppCompatActivity {
 
     FirebaseFirestore db;
+    SharedData appData;
     Button buttonlowest;
     Button buttonhighest;
     String highestscore="";
@@ -56,6 +57,8 @@ public class SearchUserCode extends AppCompatActivity {
         String userName=intent.getStringExtra("userName");
         txtUsername.setText(userName);
 
+        appData=(SharedData) getApplication();
+        userName=appData.getUsername();
         db = FirebaseFirestore.getInstance();
         txtTotalScore = findViewById(R.id.txtTotalScore);
         txtNumber = findViewById(R.id.txtNumber);
@@ -102,16 +105,35 @@ public class SearchUserCode extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable final QuerySnapshot queryDocumentSnapshots, @Nullable
                                     FirebaseFirestoreException error) {
+//                                boolean exit = false;
+//                                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+//                                    String ID = doc.getId();
+//                                    Intent intent=new Intent(SearchUserCode.this,SelectedSearchUserQr.class);
+//                                    intent.putExtra("qrid",userstr);
+//                                    intent.putExtra("index", i);
+//                                    intent.putExtra("UserName",userName);
+//                                    Long score = (Long)tmp_codeScoreList.get(i).get("score");
+//                                    intent.putExtra("score", score);
+//                                    startActivity(intent);}
                                 boolean exit = false;
                                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                                     String ID = doc.getId();
-                                    Intent intent=new Intent(SearchUserCode.this,SelectedSearchUserQr.class);
-                                    intent.putExtra("qrid",userstr);
+                                    if (ID.equals(userstr)) {
+                                        exit = true;
+                                    }
+                                }
+                                if (exit == false) {
+//                                    showDelete(i);
+                                } else {
+                                    SharedData appData = (SharedData) getApplication();
+                                    appData.setComefromme(false);
+                                    Intent intent = new Intent(SearchUserCode.this, SelectedQrActivity.class);
+                                    intent.putExtra("qrid", userstr);
                                     intent.putExtra("index", i);
-                                    intent.putExtra("UserName",userName);
-                                    Long score = (Long)tmp_codeScoreList.get(i).get("score");
+                                    Long score = (Long) tmp_codeScoreList.get(i).get("score");
                                     intent.putExtra("score", score);
-                                    startActivity(intent);}
+                                    startActivity(intent);
+                                }
 
                             }
                         });

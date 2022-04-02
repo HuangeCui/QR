@@ -10,8 +10,16 @@ public class SharedData extends Application {
     private String imagepath;
     private int codescore;
     private String codedisplay;
+    private String playerName;
+    private Boolean comefromme;
 
+    public String getPlayerName() {
+        return playerName;
+    }
 
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -67,5 +75,13 @@ public class SharedData extends Application {
 
     public String getQrcodekey() {
         return qrcodekey;
+    }
+
+    public void setComefromme(Boolean comefromme) {
+        this.comefromme = comefromme;
+    }
+
+    public Boolean getComefromme() {
+        return comefromme;
     }
 }
