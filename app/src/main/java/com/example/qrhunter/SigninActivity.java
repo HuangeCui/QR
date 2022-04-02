@@ -87,7 +87,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
             if (result.getContents() != null) {
                 SharedData appData = (SharedData) getApplication();
                 appData.setUsername(result.getContents());
-                appData.setPlayerName(result.getContents());
                 Intent intent = new Intent(SigninActivity.this, MainActivity.class);
                 startActivity(intent);
 
@@ -128,7 +127,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 //                    for (QueryDocumentSnapshot document : task.getResult()) {
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
                         appData.setUsername(document.getId());
-                        appData.setPlayerName(document.getId());
                         Log.d(TAG, document.getId() + " => " + document.getData());
 //                        Log.d("TAG", "onComplete1: " + " => " + document.toObject(User.class));
 //                        Log.d("TAG", "onComplete2: " + " => " + appData.getUser().getName() + "  " + appData.getUser().getPassword());
