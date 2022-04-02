@@ -39,11 +39,11 @@ public class GenerateCOde extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_code);
         appData = (SharedData) getApplication();
-        username = appData.getSearchname();
+        username = appData.getUsername();
 
 
         SignInCode = findViewById(R.id.SigninCode);
-        String SignInQrVl = username+"SignIn";
+        String SignInQrVl = username;
         //String ProfileQrVl = username + "Profile";
         Bitmap SignInQR = createBitmap(SignInQrVl);
         //Bitmap ProfileQR = createBitmap(ProfileQrVl);

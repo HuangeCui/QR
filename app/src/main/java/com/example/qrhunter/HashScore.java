@@ -16,6 +16,7 @@ public class HashScore {
             messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(str.getBytes("UTF-8"));
             encodestr = byte2hex(messageDigest.digest());
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

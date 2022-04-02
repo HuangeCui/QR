@@ -53,8 +53,7 @@ public class SharedGeo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveGeo();
-                Intent intent = new Intent(SharedGeo.this, UserCode.class);
-                startActivity(intent);
+
 
             }
         });

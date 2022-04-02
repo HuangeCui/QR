@@ -71,7 +71,7 @@ public class RankAmount extends AppCompatActivity {
                     Log.e("total",""+amount);
                 }
 
-                 sortTotal(userDataList);
+                 userDataList = sortTotal(userDataList);
                  userAdapter = new CustomList(RankAmount.this, userDataList);
                  userList.setAdapter(userAdapter);
                  String str =findTotal(userDataList, userId);
@@ -92,7 +92,8 @@ public class RankAmount extends AppCompatActivity {
 
     }
 
-    public void sortTotal(ArrayList<User> userDataList){
+    public ArrayList<User> sortTotal(ArrayList<User> userDataList){
+        ArrayList<User> list = new ArrayList<>();
         Collections.sort(userDataList, new Comparator<User>() {
             @Override
             public int compare(User user, User user2) {
@@ -100,6 +101,8 @@ public class RankAmount extends AppCompatActivity {
                 return i;
             }
         });
+        list = userDataList;
+        return list;
     }
 
     public String findTotal(ArrayList<User> userDataList, String userId){

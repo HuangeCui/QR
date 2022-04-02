@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 //signin, and remember me
 public class SigninActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -57,11 +61,42 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.txtSigninQRCode:
+                scanCode();
                 break;
             default:
                 break;
         }
 
+    }
+
+    private void scanCode(){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setCaptureActivity(ScanActivity.class);
+        integrator.setOrientationLocked(false);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scanning code");
+        integrator.setBarcodeImageEnabled(true);
+        integrator.setBeepEnabled(true);
+        integrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                SharedData appData = (SharedData) getApplication();
+                appData.setUsername(result.getContents());
+                appData.setPlayerName(result.getContents());
+                Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                startActivity(intent);
+
+            } else {
+                Toast.makeText(this, "No Result", Toast.LENGTH_LONG).show();
+            }
+        }else{
+            super.onActivityResult(requestCode,resultCode,data);
+        }
     }
 
     private void signin() {

@@ -70,7 +70,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         qrCode = appData.getQrcode();
         imagePath = appData.getImagepath();
         userName = appData.getUsername();
-        qrCode = "123";
+        //qrCode = "123";
         ImageView imageView = findViewById(R.id.imgQrcode);
         Log.d(TAG, "onCreate: " + imagePath + "    " + qrCode);
 
