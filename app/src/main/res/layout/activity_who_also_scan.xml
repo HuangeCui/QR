@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RankAmount">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Back">
+
+        </Button>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/toshow"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textSize="30sp"
+            android:textColor="#0000FF"
+            android:text="This code also scanned by:"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/qr_also_list"
+        android:layout_width="match_parent"
+        android:layout_height="641dp">
+
+    </ListView>
+
+</LinearLayout>

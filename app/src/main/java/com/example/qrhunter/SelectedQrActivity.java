@@ -44,14 +44,21 @@ public class SelectedQrActivity extends AppCompatActivity {
         codeDisplay = appData.getCodedisplay();
 
         TextView textView;
-
+        // who scanned this qrCode
         textView = findViewById(R.id.txtElse);
-        //textView.setOnClickListener(this);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SelectedQrActivity.this,WhoAlsoScan.class);
+                intent.putExtra("qrid",qrid);
+                startActivity(intent);
+            }
+        });
 
         //button = findViewById(R.id.btnCodeComment);
         //button.setOnClickListener(this);
 
-        //delete按钮的功能
+        //delete
         Button deletebutton;
         deletebutton = findViewById(R.id.btnCodeDelete);
         deletebutton.setOnClickListener(new View.OnClickListener() {
